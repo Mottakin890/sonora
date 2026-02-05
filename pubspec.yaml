@@ -78,13 +78,18 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: Poppins
+    - family: Satoshi
       fonts:
-        - asset: assets/fonts/poppins/Poppins-Bold.ttf
-        - asset: assets/fonts/poppins/Poppins-Light.ttf
-        - asset: assets/fonts/poppins/Poppins-Medium.ttf
-        - asset: assets/fonts/poppins/Poppins-Regular.ttf
-        - asset: assets/fonts/poppins/Poppins-Thin.ttf
+        - asset: assets/fonts/Satoshi-Black.otf
+          weight: 900
+        - asset: assets/fonts/Satoshi-Bold.otf
+          weight: 600
+        - asset: assets/fonts/Satoshi-Light.otf
+          weight: 300
+        - asset: assets/fonts/Satoshi-Medium.otf
+          weight: 500
+        - asset: assets/fonts/Satoshi-Regular.otf
+          weight: 400
 
   #
   # For details regarding fonts from package dependencies,
