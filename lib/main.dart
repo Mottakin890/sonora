@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+import 'package:sonora/common/themes/app_theme.dart';
+import 'package:sonora/presentation/splash/view/splash_screen.dart';
 
 void main(List<String> args) {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,12 +26,11 @@ class SonoraApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        body: Center(
-          child: SvgPicture.asset('assets/application/icon.svg', width: 200,height: 200,),
-        ),
-      ),
+      home: const SplashScreen(),
     );
   }
 }
