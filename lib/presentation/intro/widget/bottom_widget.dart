@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sonora/common/themes/app_colors.dart';
-import 'package:sonora/common/utils/spacings.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
 import 'package:sonora/common/widgets/app_button.dart';
 import 'package:sonora/presentation/auth/view/register_or_sign_in.dart';
 

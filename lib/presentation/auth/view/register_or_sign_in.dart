@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:sonora/common/resources/app_assets.dart';
 import 'package:sonora/common/themes/app_colors.dart';
-import 'package:sonora/common/utils/spacings.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
 import 'package:sonora/common/widgets/app_button.dart';
 import 'package:sonora/presentation/auth/view/register_view.dart';
 import 'package:sonora/presentation/auth/view/sign_in_screen.dart';
@@ -36,7 +36,10 @@ class RegisterOrSignIn extends StatelessWidget {
                     child: SvgPicture.asset(
                       AppAssets.back,
                       height: 35.h,
-                      
+                      colorFilter: ColorFilter.mode(
+                        isDarkMode ? AppColors.cDarkGrey : AppColors.cWhite,
+                        BlendMode.srcIn,
+                      ),
                     ),
                   ),
                 ),

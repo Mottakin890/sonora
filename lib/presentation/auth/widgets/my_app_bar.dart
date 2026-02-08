@@ -28,7 +28,15 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
               color: isDarkMode ? AppColors.cDarkGrey : AppColors.cGrey,
               shape: BoxShape.circle,
             ),
-            child: SvgPicture.asset(AppAssets.back, height: 50.h, width: 50.h),
+            child: SvgPicture.asset(
+              AppAssets.back,
+              height: 50.h,
+              width: 50.h,
+              colorFilter: ColorFilter.mode(
+                isDarkMode ? AppColors.cDarkGrey : AppColors.cWhite,
+                BlendMode.srcIn,
+              ),
+            ),
           ),
         ),
       ),

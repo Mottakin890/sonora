@@ -4,6 +4,7 @@ import 'package:sonora/common/themes/app_colors.dart';
 
 class AppTheme {
   static final lightTheme = ThemeData(
+    useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColors.cPrimary,
       brightness: Brightness.light,
@@ -30,6 +31,7 @@ class AppTheme {
   );
 
   static final darkTheme = ThemeData(
+    useMaterial3: true,
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColors.cPrimary,
       brightness: Brightness.dark,

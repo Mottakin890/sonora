@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sonora/common/themes/app_theme.dart';
+import 'package:sonora/common/utils/di/service_locator.dart';
 import 'package:sonora/firebase_options.dart';
 import 'package:sonora/presentation/splash/view/splash_screen.dart';
 
@@ -25,6 +26,7 @@ void main(List<String> args) async {
 Future<void> _initApp() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await dependencyInjection();
 }
 
 class SonoraApp extends StatelessWidget {
