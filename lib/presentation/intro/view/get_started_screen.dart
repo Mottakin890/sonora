@@ -43,7 +43,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
     return Scaffold(
       body: Stack(
         children: [
-          // Animated Crossfade Background
           AnimatedSwitcher(
             duration: const Duration(milliseconds: 1000),
             child: Container(
@@ -57,10 +56,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
             ),
           ),
           
-          // Dark overlay
           Container(color: AppColors.cBlack.withValues(alpha: 0.15)),
           
-          // Content
           Column(
             children: [
               Align(

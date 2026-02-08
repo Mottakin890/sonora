@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sonora/common/themes/app_colors.dart';
 import 'package:sonora/common/utils/spacings.dart';
 import 'package:sonora/common/widgets/app_button.dart';
+import 'package:sonora/presentation/auth/view/register_or_sign_in.dart';
 
 class BottomWidget extends StatelessWidget {
   const BottomWidget({super.key});
@@ -13,7 +14,7 @@ class BottomWidget extends StatelessWidget {
       children: [
         Text(
           'Enjoy Listening to Music',
-          style: TextStyle(fontWeight: .bold, fontSize: 25.sp),
+          style: TextStyle(fontWeight: .w600, fontSize: 25.sp),
         ),
         Spacing.vertical(25),
         Text(
@@ -37,7 +38,10 @@ class BottomWidget extends StatelessWidget {
         Spacing.vertical(40),
         AppButton(
           onPressed: () {
-            debugPrint('Pressed');
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const RegisterOrSignIn()),
+            );
           },
           title: 'Get Started',
         ),
