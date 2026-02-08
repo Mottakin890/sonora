@@ -1,136 +1,97 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sonora/common/themes/app_colors.dart';
 import 'package:sonora/common/utils/spacings.dart';
 import 'package:sonora/common/widgets/app_button.dart';
 import 'package:sonora/presentation/auth/view/register_view.dart';
+import 'package:sonora/presentation/auth/widgets/my_app_bar.dart';
 import 'package:sonora/presentation/auth/widgets/my_test_field.dart';
 
-import '../../../common/resources/app_assets.dart';
-import '../../../common/themes/app_colors.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
 
-  @override
+   @override
   Widget build(BuildContext context) {
-    bool isDarkMode =
-        MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Scaffold(
-      body: Stack(
-        children: [
-          SafeArea(
-            child: Align(
-              alignment: .topLeft,
-              child: GestureDetector(
-                onTap: () {
-                  Navigator.pop(context);
-                },
-                child: RPadding(
-                  padding: const EdgeInsets.all(20.0),
-                  child: Container(
-                    padding: EdgeInsets.all(2),
-                    decoration: BoxDecoration(
-                      color: isDarkMode ? AppColors.cDarkGrey : AppColors.cGrey,
-                      borderRadius: .circular(50.r),
-                    ),
-                    child: SvgPicture.asset(AppAssets.back, height: 35.h),
-                  ),
-                ),
+      appBar: MyAppBar(),
+      body: Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: .center,
+            children: [
+              Text(
+                'Sign In',
+                style: TextStyle(fontWeight: .w600, fontSize: 30.sp),
               ),
-            ),
-          ),
-          SafeArea(
-            top: false,
-            child: Align(
-              alignment: .topCenter,
-              child: Column(
-                children: [
-                  Spacing.vertical(15),
-                  SvgPicture.asset(
-                    AppAssets.splash,
-                    height: 120.h,
-                    width: 120.w,
-                  ),
-                ],
-              ),
-            ),
-          ),
-          RPadding(
-            padding: const EdgeInsets.all(20),
-            child: Center(
-              child: Column(
+              Spacing.vertical(10),
+              Row(
                 mainAxisAlignment: .center,
                 children: [
                   Text(
-                    'Sign In',
-                    style: TextStyle(fontSize: 30.sp, fontWeight: .w600),
+                    'If you need support! ',
+                    style: TextStyle(fontWeight: .w400, fontSize: 12.sp),
                   ),
-                  Spacing.vertical(10),
-                  Row(
-                    mainAxisAlignment: .center,
-                    children: [
-                      Text(
-                        'If you need any support! ',
-                        style: TextStyle(fontSize: 12.sp),
-                      ),
-                      GestureDetector(
-                        onTap: () {},
-                        child: Text(
-                          'Click here',
-                          style: TextStyle(
-                            fontSize: 12.sp,
-                            color: AppColors.cPrimary,
-                            decoration: .underline,
-                            decorationColor: AppColors.cPrimary,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  Spacing.vertical(40),
-                  MyTestField(hintText: 'Enter Email'),
-                  Spacing.vertical(10),
-                  MyTestField(hintText: 'Password'),
-                  Spacing.vertical(30),
-                  AppButton(onPressed: () {}, title: 'Sign In'),
-                ],
-              ),
-            ),
-          ),
-          Align(
-            alignment: .bottomCenter,
-            child: RPadding(
-              padding: const EdgeInsets.only(bottom: 25),
-              child: Row(
-                mainAxisAlignment: .center,
-                children: [
-                  Text('Not a member? ', style: TextStyle(fontSize: 14.sp)),
                   GestureDetector(
-                    onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const RegisterView(),
-                        ),
-                      );
-                    },
+                    onTap: () {},
                     child: Text(
-                      'Register Now',
+                      'Click here',
                       style: TextStyle(
+                        fontSize: 12.sp,
+                        fontWeight: .w600,
                         color: AppColors.cPrimary,
                         decoration: .underline,
                         decorationColor: AppColors.cPrimary,
-                        fontWeight: .w600,
-                        fontSize: 14.sp,
                       ),
                     ),
                   ),
                 ],
               ),
-            ),
+              Spacing.vertical(50),
+              RPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: MyTestField(hintText: 'Enter Email'),
+              ),
+              Spacing.vertical(6),
+              RPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: MyTestField(hintText: 'Enter Password', obsecureText: true,),
+              ),
+              Spacing.vertical(30),
+              RPadding(
+                padding: const EdgeInsets.symmetric(horizontal: 24.0),
+                child: AppButton(onPressed: () {}, title: 'Sign In'),
+              ),
+            ],
           ),
-        ],
+        ),
+      ),
+      bottomNavigationBar: RPadding(
+        padding: const EdgeInsets.only(bottom: 14),
+        child: Row(
+          mainAxisAlignment: .center,
+          children: [
+            Text('Not a member? ', style: TextStyle(fontSize: 14.sp)),
+            GestureDetector(
+              onTap: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const RegisterView()),
+                );
+              },
+              child: Text(
+                'Register Now',
+                style: TextStyle(
+                  color: AppColors.cPrimary,
+                  decoration: .underline,
+                  decorationColor: AppColors.cPrimary,
+                  fontWeight: .w600,
+                  fontSize: 14.sp,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
