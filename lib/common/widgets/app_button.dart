@@ -8,6 +8,7 @@ class AppButton extends StatelessWidget {
   final double? height;
   final Color? color;
   final double? fontSize;
+  final Color? textColor;
 
   const AppButton({
     super.key,
@@ -15,7 +16,8 @@ class AppButton extends StatelessWidget {
     required this.title,
     this.height,
     this.color,
-    this.fontSize
+    this.fontSize,
+    this.textColor,
   });
 
   @override
@@ -28,7 +30,7 @@ class AppButton extends StatelessWidget {
       ),
       child: Text(
         title,
-        style: TextStyle(fontWeight: .bold, fontSize: fontSize ?? 22.sp),
+        style: TextStyle(color: textColor ?? AppColors.cLightBg),
       ),
     );
   }

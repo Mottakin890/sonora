@@ -116,6 +116,7 @@ class RegisterOrSignIn extends StatelessWidget {
                             },
                             title: 'Sign In',
                             color: AppColors.cLightBg,
+                            textColor: AppColors.cPrimary,
                             fontSize: 19.sp,
                             height: 60.h,
                           ),

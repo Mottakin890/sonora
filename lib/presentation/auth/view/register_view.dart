@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sonora/common/themes/app_colors.dart';
 import 'package:sonora/common/utils/spacings.dart';
 import 'package:sonora/common/widgets/app_button.dart';
+import 'package:sonora/presentation/auth/view/sign_in_screen.dart';
 import 'package:sonora/presentation/auth/widgets/my_app_bar.dart';
 import 'package:sonora/presentation/auth/widgets/my_test_field.dart';
 
@@ -79,7 +80,7 @@ class RegisterView extends StatelessWidget {
               onTap: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const RegisterView()),
+                  MaterialPageRoute(builder: (context) => const SignInScreen()),
                 );
               },
               child: Text(

@@ -22,7 +22,8 @@ class AppTheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.cPrimary,
-        textStyle: TextStyle(fontSize: 20.sp, fontWeight: .w600),
+        textStyle: TextStyle(fontSize: 22.sp, fontWeight: .w600, color: AppColors.cLightBg),
+        foregroundColor: AppColors.cLightBg,
         shape: RoundedRectangleBorder(borderRadius: .circular(30.r)),
       ),
     ),
@@ -47,7 +48,8 @@ class AppTheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.cPrimary,
-        textStyle: TextStyle(fontSize: 20.sp, fontWeight: .w600),
+        textStyle: TextStyle(fontSize: 22.sp, fontWeight: .w600, color: AppColors.cLightBg),
+        foregroundColor: AppColors.cLightBg,
         shape: RoundedRectangleBorder(borderRadius: .circular(30.r)),
       ),
     ),

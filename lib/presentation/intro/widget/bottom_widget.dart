@@ -14,7 +14,7 @@ class BottomWidget extends StatelessWidget {
       children: [
         Text(
           'Enjoy Listening to Music',
-          style: TextStyle(fontWeight: .w600, fontSize: 25.sp),
+          style: TextStyle(fontWeight: .w600, fontSize: 25.sp, color: AppColors.cLightBg),
         ),
         Spacing.vertical(25),
         Text(

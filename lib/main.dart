@@ -7,8 +7,7 @@ import 'package:sonora/firebase_options.dart';
 import 'package:sonora/presentation/splash/view/splash_screen.dart';
 
 void main(List<String> args) async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await _initApp();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((
     _,
   ) {
@@ -23,6 +22,11 @@ void main(List<String> args) async {
   });
 }
 
+Future<void> _initApp() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+}
+
 class SonoraApp extends StatelessWidget {
   const SonoraApp({super.key});
 
@@ -33,6 +37,7 @@ class SonoraApp extends StatelessWidget {
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
+
       home: const SplashScreen(),
     );
   }
