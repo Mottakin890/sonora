@@ -22,16 +22,16 @@ class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
             Navigator.pop(context);
           },
           child: Container(
-            height: 50.h,
-            width: 50.w,
+            height: 24.h,
+            width: 24.w,
             decoration: BoxDecoration(
               color: isDarkMode ? AppColors.cDarkGrey : AppColors.cGrey,
               shape: BoxShape.circle,
             ),
             child: SvgPicture.asset(
               AppAssets.back,
-              height: 50.h,
-              width: 50.h,
+              height: 24.h,
+              width: 24.w,
               colorFilter: ColorFilter.mode(
                 isDarkMode ? AppColors.cDarkGrey : AppColors.cWhite,
                 BlendMode.srcIn,
