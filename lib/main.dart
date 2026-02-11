@@ -39,7 +39,6 @@ class SonoraApp extends StatelessWidget {
       darkTheme: AppTheme.darkTheme,
       themeMode: ThemeMode.system,
       debugShowCheckedModeBanner: false,
-
       home: const SplashScreen(),
     );
   }

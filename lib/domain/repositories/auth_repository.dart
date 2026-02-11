@@ -1,6 +1,7 @@
-import 'package:sonora/data/models/user_model.dart';
+import 'package:sonora/domain/entities/user_entities.dart';
+import 'package:sonora/domain/result/result.dart';
 
 abstract class AuthRepository {
-  Future<void> signUp(UserModel  userModel);
-  Future<void> signIn(UserModel  userModel);
+  Future<Result<UserEntities>> signUp(String email, String password);
+  Future<Result<UserEntities>> signIn(String email, String password);
 }
