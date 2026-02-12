@@ -15,4 +15,8 @@ class AuthUsecases {
   Future<Result<UserEntities>> signUp(String email, String password) async {
     return await _authRepository.signUp(email, password);
   }
+
+  Future<Result<UserEntities>> getUser() async {
+    return await _authRepository.getUser();
+  }
 }

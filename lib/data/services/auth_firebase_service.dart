@@ -7,6 +7,7 @@ import 'package:sonora/data/response/service_response.dart';
 abstract class IAuthFirebaseService {
   Future<ServiceResponse<UserModel>> signUp(String email, String password);
   Future<ServiceResponse<UserModel>> signIn(String email, String password);
+  Future<ServiceResponse<UserModel>> getUser();
 }
 
 class AuthFirebaseService implements IAuthFirebaseService {
@@ -120,6 +121,25 @@ class AuthFirebaseService implements IAuthFirebaseService {
         message: 'An unexpected error occurred: ${e.toString()}',
         statusCode: 500,
       );
+    }
+  }
+
+  @override
+  Future<ServiceResponse<UserModel>> getUser() async {
+    try {
+      final user = _firebaseAuth.currentUser;
+      if (user != null) {
+        return ServiceResponse.success(
+          data: UserModel(
+            id: user.uid,
+            username: user.displayName ?? '',
+            email: user.email ?? "",
+          ),
+        );
+      }
+      return ServiceResponse.error(statusCode: 401, message: "No user found.");
+    } catch (e) {
+      return ServiceResponse.error(statusCode: 500, message: e.toString());
     }
   }
 }
