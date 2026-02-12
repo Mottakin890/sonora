@@ -9,6 +9,7 @@ class AppButton extends StatelessWidget {
   final Color? color;
   final double? fontSize;
   final Color? textColor;
+  final bool isLoading;
 
   const AppButton({
     super.key,
@@ -18,20 +19,23 @@ class AppButton extends StatelessWidget {
     this.color,
     this.fontSize,
     this.textColor,
+    this.isLoading = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: onPressed,
+      onPressed: isLoading ? null : onPressed,
       style: ElevatedButton.styleFrom(
         minimumSize: Size.fromHeight((height ?? 76).sp),
         backgroundColor: color ?? AppColors.cPrimary,
       ),
-      child: Text(
-        title,
-        style: TextStyle(color: textColor ?? AppColors.cLightBg),
-      ),
+      child: isLoading
+          ? const CircularProgressIndicator(color: Colors.white)
+          : Text(
+              title,
+              style: TextStyle(color: textColor ?? AppColors.cLightBg),
+            ),
     );
   }
 }

@@ -92,7 +92,7 @@ class RegisterOrSignIn extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const RegisterView(),
+                                  builder: (context) => RegisterView(),
                                 ),
                               );
                             },
@@ -113,7 +113,7 @@ class RegisterOrSignIn extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => const SignInScreen(),
+                                  builder: (context) => SignInScreen(),
                                 ),
                               );
                             },

@@ -1,36 +1,58 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sonora/common/themes/app_colors.dart';
 import 'package:sonora/common/utils/dimentions/spacings.dart';
 import 'package:sonora/common/widgets/app_button.dart';
+import 'package:sonora/presentation/auth/bloc/auth_bloc.dart';
+import 'package:sonora/presentation/auth/bloc/auth_event.dart';
+import 'package:sonora/presentation/auth/bloc/auth_state.dart';
 import 'package:sonora/presentation/auth/view/register_view.dart';
 import 'package:sonora/presentation/auth/widgets/my_app_bar.dart';
 import 'package:sonora/presentation/auth/widgets/my_test_field.dart';
 
-
-class SignInScreen extends StatelessWidget {
+class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
 
-   @override
+  @override
+  State<SignInScreen> createState() => _SignInScreenState();
+}
+
+class _SignInScreenState extends State<SignInScreen> {
+  final _emailController = TextEditingController();
+
+  final _passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    _emailController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: MyAppBar(),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
-            mainAxisAlignment: .center,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text(
                 'Sign In',
-                style: TextStyle(fontWeight: .w600, fontSize: 30.sp),
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 30.sp),
               ),
               Spacing.vertical(10),
               Row(
-                mainAxisAlignment: .center,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
                     'If you need support! ',
-                    style: TextStyle(fontWeight: .w400, fontSize: 12.sp),
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontSize: 12.sp,
+                    ),
                   ),
                   GestureDetector(
                     onTap: () {},
@@ -38,9 +60,9 @@ class SignInScreen extends StatelessWidget {
                       'Click here',
                       style: TextStyle(
                         fontSize: 12.sp,
-                        fontWeight: .w600,
+                        fontWeight: FontWeight.w600,
                         color: AppColors.cPrimary,
-                        decoration: .underline,
+                        decoration: TextDecoration.underline,
                         decorationColor: AppColors.cPrimary,
                       ),
                     ),
@@ -50,17 +72,39 @@ class SignInScreen extends StatelessWidget {
               Spacing.vertical(50),
               RPadding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: MyTestField(hintText: 'Enter Email'),
+                child: MyTestField(
+                  hintText: 'Enter Email',
+                  controller: _emailController,
+                ),
               ),
               Spacing.vertical(6),
               RPadding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: MyTestField(hintText: 'Enter Password', obsecureText: true,),
+                child: MyTestField(
+                  hintText: 'Enter Password',
+                  obsecureText: true,
+                  controller: _passwordController,
+                ),
               ),
               Spacing.vertical(30),
               RPadding(
                 padding: const EdgeInsets.symmetric(horizontal: 24.0),
-                child: AppButton(onPressed: () {}, title: 'Sign In'),
+                child: BlocBuilder<AuthBloc, AuthState>(
+                  builder: (context, state) {
+                    return AppButton(
+                      isLoading: state is AuthLoadingState,
+                      onPressed: () {
+                        context.read<AuthBloc>().add(
+                          SignInEvent(
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                          ),
+                        );
+                      },
+                      title: 'Sign In',
+                    );
+                  },
+                ),
               ),
             ],
           ),
@@ -69,23 +113,23 @@ class SignInScreen extends StatelessWidget {
       bottomNavigationBar: RPadding(
         padding: const EdgeInsets.only(bottom: 14),
         child: Row(
-          mainAxisAlignment: .center,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text('Not a member? ', style: TextStyle(fontSize: 14.sp)),
             GestureDetector(
               onTap: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => const RegisterView()),
+                  MaterialPageRoute(builder: (context) => RegisterView()),
                 );
               },
               child: Text(
                 'Register Now',
                 style: TextStyle(
                   color: AppColors.cPrimary,
-                  decoration: .underline,
+                  decoration: TextDecoration.underline,
                   decorationColor: AppColors.cPrimary,
-                  fontWeight: .w600,
+                  fontWeight: FontWeight.w600,
                   fontSize: 14.sp,
                 ),
               ),
