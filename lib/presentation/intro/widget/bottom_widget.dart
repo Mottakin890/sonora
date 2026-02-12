@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sonora/common/themes/app_colors.dart';
@@ -14,7 +16,11 @@ class BottomWidget extends StatelessWidget {
       children: [
         Text(
           'Enjoy Listening to Music',
-          style: TextStyle(fontWeight: .w600, fontSize: 25.sp, color: AppColors.cLightBg),
+          style: TextStyle(
+            fontWeight: .w600,
+            fontSize: 25.sp,
+            color: AppColors.cLightBg,
+          ),
         ),
         Spacing.vertical(25),
         Text(
@@ -38,9 +44,13 @@ class BottomWidget extends StatelessWidget {
         Spacing.vertical(40),
         AppButton(
           onPressed: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const RegisterOrSignIn()),
+            unawaited(
+              Navigator.push(
+                context,
+                MaterialPageRoute<RegisterOrSignIn>(
+                  builder: (context) => const RegisterOrSignIn(),
+                ),
+              ),
             );
           },
           title: 'Get Started',

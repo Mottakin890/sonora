@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,7 +9,7 @@ import 'package:sonora/common/widgets/app_button.dart';
 import 'package:sonora/presentation/auth/bloc/auth_bloc.dart';
 import 'package:sonora/presentation/auth/bloc/auth_event.dart';
 import 'package:sonora/presentation/auth/bloc/auth_state.dart';
-import 'package:sonora/presentation/auth/view/sign_in_screen.dart';
+import 'package:sonora/presentation/auth/view/sign_in_view.dart';
 import 'package:sonora/presentation/auth/widgets/my_app_bar.dart';
 import 'package:sonora/presentation/auth/widgets/my_test_field.dart';
 
@@ -36,7 +38,7 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: const MyAppBar(),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -132,9 +134,13 @@ class _RegisterViewState extends State<RegisterView> {
             ),
             GestureDetector(
               onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => SignInScreen()),
+                unawaited(
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute<SignInView>(
+                      builder: (context) => const SignInView(),
+                    ),
+                  ),
                 );
               },
               child: Text(

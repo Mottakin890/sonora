@@ -1,16 +1,16 @@
 import 'package:get_it/get_it.dart';
-import 'package:sonora/data/repo/auth_firebase_repo.dart';
+import 'package:sonora/data/repositories/auth_firebase_repository.dart';
 import 'package:sonora/data/services/auth_firebase_service.dart';
 import 'package:sonora/domain/repositories/auth_repository.dart';
 import 'package:sonora/domain/usecases/auth_usecases.dart';
 import 'package:sonora/presentation/auth/bloc/auth_bloc.dart';
 
-final servicelocator = GetIt.instance;
+final GetIt servicelocator = GetIt.instance;
 
 Future<void> dependencyInjection() async {
   // Services
   servicelocator.registerLazySingleton<AuthFirebaseService>(
-    () => AuthFirebaseService(),
+    AuthFirebaseService.new,
   );
 
   // Repositories

@@ -24,3 +24,8 @@ class AppStarted extends AuthEvent {
   @override
   List<Object?> get props => [];
 }
+
+class LogOutEvent extends AuthEvent{
+   @override
+  List<Object?> get props => [];
+}

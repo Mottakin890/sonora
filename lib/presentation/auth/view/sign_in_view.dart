@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,14 +13,14 @@ import 'package:sonora/presentation/auth/view/register_view.dart';
 import 'package:sonora/presentation/auth/widgets/my_app_bar.dart';
 import 'package:sonora/presentation/auth/widgets/my_test_field.dart';
 
-class SignInScreen extends StatefulWidget {
-  const SignInScreen({super.key});
+class SignInView extends StatefulWidget {
+  const SignInView({super.key});
 
   @override
-  State<SignInScreen> createState() => _SignInScreenState();
+  State<SignInView> createState() => _SignInViewState();
 }
 
-class _SignInScreenState extends State<SignInScreen> {
+class _SignInViewState extends State<SignInView> {
   final _emailController = TextEditingController();
 
   final _passwordController = TextEditingController();
@@ -33,7 +35,7 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: MyAppBar(),
+      appBar: const MyAppBar(),
       body: Center(
         child: SingleChildScrollView(
           child: Column(
@@ -118,9 +120,13 @@ class _SignInScreenState extends State<SignInScreen> {
             Text('Not a member? ', style: TextStyle(fontSize: 14.sp)),
             GestureDetector(
               onTap: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => RegisterView()),
+                unawaited(
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute<RegisterView>(
+                      builder: (context) => const RegisterView(),
+                    ),
+                  ),
                 );
               },
               child: Text(
