@@ -3,14 +3,14 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sonora/common/themes/app_colors.dart';
 
-import '../../../common/resources/app_assets.dart';
+import 'package:sonora/common/resources/app_assets.dart';
 
 class MyAppBar extends StatelessWidget implements PreferredSizeWidget {
   const MyAppBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode =
+    final isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
     return AppBar(
       backgroundColor: AppColors.cTransparent,

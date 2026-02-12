@@ -8,10 +8,11 @@ abstract class IAuthFirebaseService {
   Future<ServiceResponse<UserModel>> signUp(String email, String password);
   Future<ServiceResponse<UserModel>> signIn(String email, String password);
   Future<ServiceResponse<UserModel>> getUser();
+  Future<ServiceResponse<void>> logOut();
 }
 
 class AuthFirebaseService implements IAuthFirebaseService {
-  final _firebaseAuth = FirebaseAuth.instance;
+  final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
   @override
   Future<ServiceResponse<UserModel>> signIn(
@@ -27,7 +28,7 @@ class AuthFirebaseService implements IAuthFirebaseService {
         data: UserModel(
           email: userCredential.user!.email ?? '',
           id: userCredential.user!.uid,
-          username: userCredential.user!.displayName ?? "",
+          username: userCredential.user!.displayName ?? '',
         ),
       );
     } on FirebaseAuthException catch (e) {
@@ -63,9 +64,9 @@ class AuthFirebaseService implements IAuthFirebaseService {
         message: 'No internet connection',
         statusCode: 503,
       );
-    } catch (e) {
+    } on Exception catch (e) {
       return ServiceResponse.error(
-        message: 'An unexpected error occurred: ${e.toString()}',
+        message: 'An unexpected error occurred: $e',
         statusCode: 500,
       );
     }
@@ -85,7 +86,7 @@ class AuthFirebaseService implements IAuthFirebaseService {
         data: UserModel(
           email: userCredential.user!.email ?? '',
           id: userCredential.user!.uid,
-          username: userCredential.user!.displayName ?? "",
+          username: userCredential.user!.displayName ?? '',
         ),
       );
     } on FirebaseAuthException catch (e) {
@@ -116,9 +117,9 @@ class AuthFirebaseService implements IAuthFirebaseService {
         message: 'No internet connection',
         statusCode: 503,
       );
-    } catch (e) {
+    } on Exception catch (e) {
       return ServiceResponse.error(
-        message: 'An unexpected error occurred: ${e.toString()}',
+        message: 'An unexpected error occurred: $e',
         statusCode: 500,
       );
     }
@@ -133,13 +134,32 @@ class AuthFirebaseService implements IAuthFirebaseService {
           data: UserModel(
             id: user.uid,
             username: user.displayName ?? '',
-            email: user.email ?? "",
+            email: user.email ?? '',
           ),
         );
       }
-      return ServiceResponse.error(statusCode: 401, message: "No user found.");
-    } catch (e) {
-      return ServiceResponse.error(statusCode: 500, message: e.toString());
+      return ServiceResponse<UserModel>.error(
+        statusCode: 401,
+        message: 'No user found.',
+      );
+    } on Exception catch (e) {
+      return ServiceResponse<UserModel>.error(
+        statusCode: 500,
+        message: e.toString(),
+      );
+    }
+  }
+
+  @override
+  Future<ServiceResponse<void>> logOut() async {
+    try {
+      await _firebaseAuth.signOut();
+      return ServiceResponse<void>.success();
+    } on Exception catch (e) {
+      return ServiceResponse<void>.error(
+        statusCode: 500,
+        message: e.toString(),
+      );
     }
   }
 }

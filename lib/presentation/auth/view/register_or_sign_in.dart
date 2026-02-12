@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
@@ -6,14 +8,14 @@ import 'package:sonora/common/themes/app_colors.dart';
 import 'package:sonora/common/utils/dimentions/spacings.dart';
 import 'package:sonora/common/widgets/app_button.dart';
 import 'package:sonora/presentation/auth/view/register_view.dart';
-import 'package:sonora/presentation/auth/view/sign_in_screen.dart';
+import 'package:sonora/presentation/auth/view/sign_in_view.dart';
 
 class RegisterOrSignIn extends StatelessWidget {
   const RegisterOrSignIn({super.key});
 
   @override
   Widget build(BuildContext context) {
-    bool isDarkMode =
+    final isDarkMode =
         MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Scaffold(
       body: Stack(
@@ -28,7 +30,7 @@ class RegisterOrSignIn extends StatelessWidget {
                 child: RPadding(
                   padding: const EdgeInsets.all(20.0),
                   child: Container(
-                    padding: EdgeInsets.all(2),
+                    padding: const EdgeInsets.all(2),
                     decoration: BoxDecoration(
                       color: isDarkMode ? AppColors.cDarkGrey : AppColors.cGrey,
                       borderRadius: .circular(50.r),
@@ -89,10 +91,12 @@ class RegisterOrSignIn extends StatelessWidget {
                           ),
                           child: AppButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => RegisterView(),
+                              unawaited(
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<RegisterView>(
+                                    builder: (context) => const RegisterView(),
+                                  ),
                                 ),
                               );
                             },
@@ -110,10 +114,12 @@ class RegisterOrSignIn extends StatelessWidget {
                           ),
                           child: AppButton(
                             onPressed: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) => SignInScreen(),
+                              unawaited(
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute<SignInView>(
+                                    builder: (context) => const SignInView(),
+                                  ),
                                 ),
                               );
                             },

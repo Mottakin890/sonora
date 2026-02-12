@@ -5,10 +5,7 @@ import 'package:sonora/common/themes/app_colors.dart';
 class AppTheme {
   static final lightTheme = ThemeData(
     useMaterial3: true,
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: AppColors.cPrimary,
-      brightness: Brightness.light,
-    ),
+    colorScheme: ColorScheme.fromSeed(seedColor: AppColors.cPrimary),
 
     inputDecorationTheme: InputDecorationTheme(
       filled: true,
@@ -23,7 +20,11 @@ class AppTheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.cPrimary,
-        textStyle: TextStyle(fontSize: 22.sp, fontWeight: .w600, color: AppColors.cLightBg),
+        textStyle: TextStyle(
+          fontSize: 22.sp,
+          fontWeight: .w600,
+          color: AppColors.cLightBg,
+        ),
         foregroundColor: AppColors.cLightBg,
         shape: RoundedRectangleBorder(borderRadius: .circular(30.r)),
       ),
@@ -50,7 +51,11 @@ class AppTheme {
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
         backgroundColor: AppColors.cPrimary,
-        textStyle: TextStyle(fontSize: 22.sp, fontWeight: .w600, color: AppColors.cLightBg),
+        textStyle: TextStyle(
+          fontSize: 22.sp,
+          fontWeight: .w600,
+          color: AppColors.cLightBg,
+        ),
         foregroundColor: AppColors.cLightBg,
         shape: RoundedRectangleBorder(borderRadius: .circular(30.r)),
       ),

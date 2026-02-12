@@ -55,9 +55,9 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
               ),
             ),
           ),
-          
+
           Container(color: AppColors.cBlack.withValues(alpha: 0.15)),
-          
+
           Column(
             children: [
               Align(
@@ -69,8 +69,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                 ),
               ),
               const Spacer(),
-              Padding(
-                padding: const EdgeInsets.all(40.0),
+              const Padding(
+                padding: EdgeInsets.all(40.0),
                 child: BottomWidget(),
               ),
             ],

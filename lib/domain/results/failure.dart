@@ -1,4 +1,4 @@
-import 'package:sonora/domain/result/result.dart';
+import 'package:sonora/domain/results/result.dart';
 
 class Failure<T> extends Result<T> {
   final String message;

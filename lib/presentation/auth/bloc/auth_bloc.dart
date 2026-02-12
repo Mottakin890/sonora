@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sonora/domain/usecases/auth_usecases.dart';
 import 'package:sonora/presentation/auth/bloc/auth_event.dart';
@@ -26,12 +28,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<AppStarted>((event, emit) async {
-      await Future.delayed(const Duration(seconds: 2));
+      await Future<void>.delayed(const Duration(seconds: 2));
       final result = await _authUsecases.getUser();
 
       result.fold(
         (error) => emit(UnAuthenticatedState()),
         (user) => emit(AuthenticatedState(user: user)),
+      );
+    });
+
+    on<LogOutEvent>((event, emit) async {
+      emit(AuthLoadingState());
+      final result = await _authUsecases.logOut();
+
+      result.fold(
+        (error) => emit(AuthErrorState(errMsg: error.message)),
+        (_) => emit(UnAuthenticatedState()),
       );
     });
   }

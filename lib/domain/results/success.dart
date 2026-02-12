@@ -1,5 +1,5 @@
-import 'package:sonora/domain/result/failure.dart';
-import 'package:sonora/domain/result/result.dart';
+import 'package:sonora/domain/results/failure.dart';
+import 'package:sonora/domain/results/result.dart';
 
 class Success<T> extends Result<T> {
   final T data;

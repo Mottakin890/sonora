@@ -1,7 +1,7 @@
 import 'package:sonora/domain/entities/user_entities.dart';
 import 'package:sonora/domain/repositories/auth_repository.dart';
 
-import 'package:sonora/domain/result/result.dart';
+import 'package:sonora/domain/results/result.dart';
 
 class AuthUsecases {
   final AuthRepository _authRepository;
@@ -9,14 +9,18 @@ class AuthUsecases {
   AuthUsecases(this._authRepository);
 
   Future<Result<UserEntities>> signIn(String email, String password) async {
-    return await _authRepository.signIn(email, password);
+    return _authRepository.signIn(email, password);
   }
 
   Future<Result<UserEntities>> signUp(String email, String password) async {
-    return await _authRepository.signUp(email, password);
+    return _authRepository.signUp(email, password);
   }
 
   Future<Result<UserEntities>> getUser() async {
-    return await _authRepository.getUser();
+    return _authRepository.getUser();
+  }
+
+  Future<Result<void>> logOut() {
+    return _authRepository.logOut();
   }
 }

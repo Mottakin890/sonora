@@ -9,26 +9,22 @@ import 'package:sonora/firebase_options.dart';
 import 'package:sonora/presentation/auth/bloc/auth_bloc.dart';
 import 'package:sonora/presentation/auth/bloc/auth_event.dart';
 import 'package:sonora/presentation/auth/bloc/auth_state.dart';
-import 'dart:developer' as developer;
-
-import 'package:sonora/presentation/auth/view/sign_in_screen.dart';
-import 'package:sonora/presentation/home/view/home_page.dart';
-import 'package:sonora/presentation/splash/view/splash_screen.dart';
+import 'package:sonora/common/utils/logger.dart';
+import 'package:sonora/presentation/auth/view/sign_in_view.dart';
+import 'package:sonora/presentation/home/view/home_view.dart';
+import 'package:sonora/presentation/splash/view/splash_view.dart';
 
 void main(List<String> args) async {
   await _initApp();
-  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((
-    _,
-  ) {
-    runApp(
-      const ScreenUtilInit(
-        designSize: Size(375, 812),
-        minTextAdapt: true,
-        splitScreenMode: true,
-        child: SonoraApp(),
-      ),
-    );
-  });
+  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+  runApp(
+    const ScreenUtilInit(
+      designSize: Size(375, 812),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      child: SonoraApp(),
+    ),
+  );
 }
 
 Future<void> _initApp() async {
@@ -52,18 +48,17 @@ class SonoraApp extends StatelessWidget {
       child: MaterialApp(
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
-        themeMode: ThemeMode.system,
         debugShowCheckedModeBanner: false,
         home: BlocBuilder<AuthBloc, AuthState>(
           builder: (context, state) {
-            developer.log(state.toString());
+            Log.d('AuthState: $state');
             if (state is AuthenticatedState) {
-              return const HomePage();
+              return const HomeView();
             } else if (state is UnAuthenticatedState ||
                 state is AuthErrorState) {
-              return const SignInScreen();
+              return const SignInView();
             } else {
-              return const SplashScreen();
+              return const SplashView();
             }
           },
         ),

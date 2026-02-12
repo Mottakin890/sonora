@@ -1,4 +1,4 @@
-import 'failure.dart';
+import 'package:sonora/domain/results/failure.dart';
 
 abstract class Result<T> {
   const Result();
