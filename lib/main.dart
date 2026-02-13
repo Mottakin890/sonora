@@ -1,18 +1,23 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sonora/common/themes/app_theme.dart';
 import 'package:sonora/common/utils/di/service_locator.dart';
-import 'package:sonora/firebase_options.dart';
+import 'package:sonora/common/utils/enums.dart';
+
+import 'package:sonora/data/sources/endpoints/supabase_endpoints.dart';
 import 'package:sonora/presentation/auth/bloc/auth_bloc.dart';
 import 'package:sonora/presentation/auth/bloc/auth_event.dart';
 import 'package:sonora/presentation/auth/bloc/auth_state.dart';
 import 'package:sonora/common/utils/logger.dart';
-import 'package:sonora/presentation/auth/view/sign_in_view.dart';
+
+import 'package:sonora/presentation/auth/view/register_or_sign_in.dart';
 import 'package:sonora/presentation/home/view/home_view.dart';
+import 'package:sonora/presentation/intro/view/get_started_screen.dart';
 import 'package:sonora/presentation/splash/view/splash_view.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:supabase_flutter/supabase_flutter.dart' hide AuthState;
 
 void main(List<String> args) async {
   await _initApp();
@@ -29,8 +34,26 @@ void main(List<String> args) async {
 
 Future<void> _initApp() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+  await _deployment(Deployment.production);
+  await Supabase.initialize(
+    url: SupabaseEndpoints.baseUrl,
+    anonKey: SupabaseEndpoints.apiKey,
+  );
   await dependencyInjection();
+}
+
+Future<void> _deployment(Deployment deployment) async {
+  await dotenv.load(fileName: '.env');
+  try {
+    SupabaseEndpoints.baseUrl = (deployment == Deployment.production)
+        ? dotenv.env['PROJECT_URL']!
+        : dotenv.env['STAGING_PROJECT_URL']!;
+    SupabaseEndpoints.apiKey = (deployment == Deployment.production)
+        ? dotenv.env['ANON_KEY']!
+        : dotenv.env['STAGING_ANON_KEY']!;
+  } on Exception catch (e) {
+    Log.e("Deployment error: $e");
+  }
 }
 
 class SonoraApp extends StatelessWidget {
@@ -49,14 +72,21 @@ class SonoraApp extends StatelessWidget {
         theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
         debugShowCheckedModeBanner: false,
-        home: BlocBuilder<AuthBloc, AuthState>(
-          builder: (context, state) {
-            Log.d('AuthState: $state');
+        home: BlocConsumer<AuthBloc, AuthState>(
+          listener: (context, state) {
             if (state is AuthenticatedState) {
-              return const HomeView();
+              Navigator.of(context).popUntil((route) => route.isFirst);
+            }
+          },
+          builder: (context, state) {
+            Log.d('state: $state');
+            if (state is AuthenticatedState) {
+              return HomeView(user: state.user);
             } else if (state is UnAuthenticatedState ||
                 state is AuthErrorState) {
-              return const SignInView();
+              return const RegisterOrSignIn();
+            } else if (state is FirstRunState) {
+              return const GetStartedScreen();
             } else {
               return const SplashView();
             }

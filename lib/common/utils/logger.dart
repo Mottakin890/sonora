@@ -40,7 +40,7 @@ class Log {
     _logger.f(message, error: error, stackTrace: stackTrace);
   }
 
-  /// Helper to log specifically for Firebase or other services
+  /// Helper to log specifically for Supabase or other services
   static void service(String serviceName, dynamic message) {
     _logger.i('[$serviceName] $message');
   }

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sonora/domain/entities/user_entities.dart';
 import 'package:sonora/presentation/auth/bloc/auth_bloc.dart';
 import 'package:sonora/presentation/auth/bloc/auth_event.dart';
 import 'package:sonora/presentation/auth/bloc/auth_state.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  final UserEntities user;
+  const HomeView({super.key, required this.user});
 
   @override
   State<HomeView> createState() => _HomeViewState();
@@ -16,7 +18,7 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page'),
+        title: Text(widget.user.username),
         centerTitle: true,
         actions: [
           BlocBuilder<AuthBloc, AuthState>(
