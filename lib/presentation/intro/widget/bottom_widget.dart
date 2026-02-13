@@ -1,11 +1,11 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sonora/common/themes/app_colors.dart';
 import 'package:sonora/common/utils/dimentions/spacings.dart';
 import 'package:sonora/common/widgets/app_button.dart';
-import 'package:sonora/presentation/auth/view/register_or_sign_in.dart';
+import 'package:sonora/presentation/auth/bloc/auth_bloc.dart';
+import 'package:sonora/presentation/auth/bloc/auth_event.dart';
 
 class BottomWidget extends StatelessWidget {
   const BottomWidget({super.key});
@@ -44,14 +44,7 @@ class BottomWidget extends StatelessWidget {
         Spacing.vertical(40),
         AppButton(
           onPressed: () {
-            unawaited(
-              Navigator.push(
-                context,
-                MaterialPageRoute<RegisterOrSignIn>(
-                  builder: (context) => const RegisterOrSignIn(),
-                ),
-              ),
-            );
+            context.read<AuthBloc>().add(CompleteIntroEvent());
           },
           title: 'Get Started',
         ),

@@ -20,10 +20,9 @@ class AuthenticatedState extends AuthState {
   List<Object?> get props => [user];
 }
 
-class UnAuthenticatedState extends AuthState{
+class UnAuthenticatedState extends AuthState {
   @override
   List<Object?> get props => [];
-  
 }
 
 class AuthErrorState extends AuthState {
@@ -31,4 +30,9 @@ class AuthErrorState extends AuthState {
   AuthErrorState({required this.errMsg});
   @override
   List<Object?> get props => [errMsg];
+}
+
+class FirstRunState extends AuthState {
+  @override
+  List<Object?> get props => [];
 }

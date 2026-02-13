@@ -109,6 +109,7 @@ class _RegisterViewState extends State<RegisterView> {
                       onPressed: () {
                         context.read<AuthBloc>().add(
                           SignUpEvent(
+                            username: _nameController.text,
                             email: _emailController.text,
                             password: _passwordController.text,
                           ),

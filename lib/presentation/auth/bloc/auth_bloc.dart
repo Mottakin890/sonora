@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sonora/domain/usecases/auth_usecases.dart';
 import 'package:sonora/presentation/auth/bloc/auth_event.dart';
@@ -10,6 +12,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc(this._authUsecases) : super(AuthInitialState()) {
     on<SignInEvent>((event, emit) async {
+      emit(AuthLoadingState());
       final result = await _authUsecases.signIn(event.email, event.password);
 
       result.fold(
@@ -19,7 +22,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<SignUpEvent>((event, emit) async {
-      final result = await _authUsecases.signUp(event.email, event.password);
+      emit(AuthLoadingState());
+      final result = await _authUsecases.signUp(
+        event.username,
+        event.email,
+        event.password,
+      );
 
       result.fold(
         (error) => emit(AuthErrorState(errMsg: error.message)),
@@ -28,13 +36,26 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
 
     on<AppStarted>((event, emit) async {
-      await Future<void>.delayed(const Duration(seconds: 2));
-      final result = await _authUsecases.getUser();
+      final sharedPreferences = await SharedPreferences.getInstance();
+      final isFirstTime = sharedPreferences.getBool('isFirstTime') ?? true;
 
-      result.fold(
-        (error) => emit(UnAuthenticatedState()),
-        (user) => emit(AuthenticatedState(user: user)),
-      );
+      if (isFirstTime) {
+        emit(FirstRunState());
+      } else {
+        await Future<void>.delayed(const Duration(seconds: 2));
+        final result = await _authUsecases.getUser();
+
+        result.fold(
+          (error) => emit(UnAuthenticatedState()),
+          (user) => emit(AuthenticatedState(user: user)),
+        );
+      }
+    });
+
+    on<CompleteIntroEvent>((event, emit) async {
+      final sharedPreferences = await SharedPreferences.getInstance();
+      await sharedPreferences.setBool('isFirstTime', false);
+      emit(UnAuthenticatedState());
     });
 
     on<LogOutEvent>((event, emit) async {
