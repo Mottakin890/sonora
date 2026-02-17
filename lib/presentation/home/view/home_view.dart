@@ -1,9 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:sonora/common/resources/app_assets.dart';
+import 'package:sonora/common/widgets/global_app_bar.dart';
 import 'package:sonora/domain/entities/user_entities.dart';
-import 'package:sonora/presentation/auth/bloc/auth_bloc.dart';
-import 'package:sonora/presentation/auth/bloc/auth_event.dart';
-import 'package:sonora/presentation/auth/bloc/auth_state.dart';
+import 'package:sonora/presentation/home/widget/home_header.dart';
 
 class HomeView extends StatefulWidget {
   final UserEntities user;
@@ -16,25 +18,35 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
+    final isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.user.username),
-        centerTitle: true,
+      appBar: GlobalAppBar(
+        isDark: isDark,
+        appBarTitleWidget: SvgPicture.asset(
+          AppAssets.splash,
+          height: 120.h,
+          width: 120.w,
+        ),
+        leading: SvgPicture.asset(
+          AppAssets.search,
+          height: 27.h,
+          width: 27.w,
+        ),
+        onTapLeading: () {},
         actions: [
-          BlocBuilder<AuthBloc, AuthState>(
-            builder: (context, state) {
-              return IconButton(
-                onPressed: () {
-                  context.read<AuthBloc>().add(LogOutEvent());
-                },
-                icon: const Icon(Icons.logout_outlined),
-              );
-            },
+          IconButton(
+            onPressed: () {},
+            icon: Icon(
+              CupertinoIcons.ellipsis_vertical,
+              size: 27.sp,
+            ),
           ),
         ],
+      ),
+      body: const RPadding(
+        padding: EdgeInsets.all(25),
+        child: HomeHeader(),
       ),
     );
   }
 }
-
-// Final newline to satisfy the linter

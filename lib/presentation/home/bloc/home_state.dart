@@ -21,3 +21,8 @@ class HomeDataErrorState extends HomeState {
   @override
   List<Object?> get props => [message];
 }
+
+class HomeSearchState extends HomeState{
+  @override
+  List<Object?> get props => [];
+}
