@@ -6,3 +6,8 @@ class HomeDataInitEvent extends HomeEvent {
   @override
   List<Object?> get props => [];
 }
+
+class HomeSearchEvent extends HomeEvent{
+  @override
+  List<Object?> get props => [];
+}

@@ -10,4 +10,6 @@ class AppAssets {
   static const String bg5 = '$svgAssets/Union.svg';
   static const String back = '$svgAssets/back.svg';
   static const String hide = '$svgAssets/Hide.svg';
+  static const String search = '$svgAssets/search.svg';
+  static const String bg6 = '$svgAssets/union_flat.svg';
 }

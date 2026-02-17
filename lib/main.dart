@@ -5,14 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sonora/common/themes/app_theme.dart';
 import 'package:sonora/common/utils/di/service_locator.dart';
 import 'package:sonora/common/utils/enums.dart';
-
 import 'package:sonora/data/sources/endpoints/supabase_endpoints.dart';
 import 'package:sonora/presentation/auth/bloc/auth_bloc.dart';
 import 'package:sonora/presentation/auth/bloc/auth_event.dart';
 import 'package:sonora/presentation/auth/bloc/auth_state.dart';
 import 'package:sonora/common/utils/logger.dart';
-
 import 'package:sonora/presentation/auth/view/register_or_sign_in.dart';
+import 'package:sonora/presentation/home/bloc/home_bloc.dart';
 import 'package:sonora/presentation/home/view/home_view.dart';
 import 'package:sonora/presentation/intro/view/get_started_screen.dart';
 import 'package:sonora/presentation/splash/view/splash_view.dart';
@@ -21,15 +20,20 @@ import 'package:supabase_flutter/supabase_flutter.dart' hide AuthState;
 
 void main(List<String> args) async {
   await _initApp();
-  await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-  runApp(
-    const ScreenUtilInit(
-      designSize: Size(375, 812),
-      minTextAdapt: true,
-      splitScreenMode: true,
-      child: SonoraApp(),
-    ),
-  );
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]).then((
+    _,
+  ) {
+    return runApp(
+      const ScreenUtilInit(
+        designSize: Size(375, 812),
+        minTextAdapt: true,
+        splitScreenMode: true,
+        child: SonoraApp(),
+      ),
+    );
+  });
 }
 
 Future<void> _initApp() async {
@@ -66,6 +70,7 @@ class SonoraApp extends StatelessWidget {
         BlocProvider(
           create: (context) => servicelocator<AuthBloc>()..add(AppStarted()),
         ),
+        BlocProvider(create: (context) => servicelocator<HomeBloc>()),
       ],
 
       child: MaterialApp(

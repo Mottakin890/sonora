@@ -5,11 +5,15 @@ import 'package:sonora/presentation/home/bloc/home_event.dart';
 import 'package:sonora/presentation/home/bloc/home_state.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
-  final UserEntities _userEntities;
-  HomeBloc(this._userEntities)
-    : super(HomeInitialState(userData: _userEntities)) {
+  HomeBloc(UserEntities userEntities)
+    : super(HomeInitialState(userData: userEntities)) {
     on<HomeDataInitEvent>((event, emit) {
       // Logic to fetch other home data can go here
     });
+    on<HomeSearchEvent>(
+      (event, emit) {
+        // Logics for searching
+      }
+    );
   }
 }
