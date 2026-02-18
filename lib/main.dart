@@ -12,6 +12,7 @@ import 'package:sonora/presentation/auth/bloc/auth_state.dart';
 import 'package:sonora/common/utils/logger.dart';
 import 'package:sonora/presentation/auth/view/register_or_sign_in.dart';
 import 'package:sonora/presentation/home/bloc/home_bloc.dart';
+import 'package:sonora/presentation/home/bloc/home_event.dart';
 import 'package:sonora/presentation/home/view/home_view.dart';
 import 'package:sonora/presentation/intro/view/get_started_screen.dart';
 import 'package:sonora/presentation/splash/view/splash_view.dart';
@@ -70,7 +71,10 @@ class SonoraApp extends StatelessWidget {
         BlocProvider(
           create: (context) => servicelocator<AuthBloc>()..add(AppStarted()),
         ),
-        BlocProvider(create: (context) => servicelocator<HomeBloc>()),
+        BlocProvider(
+          create: (context) =>
+              servicelocator<HomeBloc>()..add(HomeDataInitEvent()),
+        ),
       ],
 
       child: MaterialApp(

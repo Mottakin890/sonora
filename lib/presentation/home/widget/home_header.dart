@@ -68,7 +68,7 @@ class HomeHeader extends StatelessWidget {
             child: Transform(
               alignment: Alignment.center,
               transform: Matrix4.identity()..scaleByDouble(-1.0, 1.0, 1.0, 1.0),
-              child: Image.asset(AppAssets.bg3),
+              child: Image.asset(AppAssets.bg3, ),
             ),
           ),
         ],
