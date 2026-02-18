@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:sonora/common/resources/app_assets.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
 import 'package:sonora/common/widgets/global_app_bar.dart';
 import 'package:sonora/domain/entities/user_entities.dart';
 import 'package:sonora/presentation/home/widget/home_header.dart';
+import 'package:sonora/presentation/home/widget/home_tab_bar.dart';
 
 class HomeView extends StatefulWidget {
   final UserEntities user;
@@ -43,9 +45,19 @@ class _HomeViewState extends State<HomeView> {
           ),
         ],
       ),
-      body: const RPadding(
-        padding: EdgeInsets.all(25),
-        child: HomeHeader(),
+      body: Column(
+        children: [
+          Spacing.vertical(15),
+          const RPadding(
+            padding: EdgeInsets.symmetric(horizontal: 25),
+            child: HomeHeader(),
+          ),
+          Spacing.vertical(30),
+          const RPadding(
+            padding: EdgeInsets.symmetric(horizontal: 25),
+            child: HomeTabBar(),
+          ),
+        ],
       ),
     );
   }
