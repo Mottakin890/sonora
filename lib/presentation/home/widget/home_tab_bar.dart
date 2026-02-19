@@ -27,13 +27,13 @@ class _HomeTabBarState extends State<HomeTabBar>
       dividerColor: AppColors.cTransparent,
       tabs: [
         Text(
-          'News',
+          'Songs',
           style: Theme.of(
             context,
           ).textTheme.labelLarge?.copyWith(fontSize: 20, fontWeight: .bold),
         ),
         Text(
-          'Video',
+          'News',
           style: Theme.of(
             context,
           ).textTheme.labelLarge?.copyWith(fontSize: 20, fontWeight: .bold),

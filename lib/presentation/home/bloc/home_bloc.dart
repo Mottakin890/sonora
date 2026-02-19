@@ -1,5 +1,4 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sonora/domain/entities/song_entities.dart';
 import 'package:sonora/domain/usecases/song_usecases.dart';
 
 import 'package:sonora/presentation/home/bloc/home_event.dart';
