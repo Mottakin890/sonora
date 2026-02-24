@@ -1,1 +1,1 @@
-Supabase db password = 10610382@Moin
+Blah blah blah
