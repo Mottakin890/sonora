@@ -40,9 +40,7 @@ dependencies:
   get_it: ^9.2.0
   equatable: ^2.0.8
   logger: ^2.6.2
-  supabase_flutter: ^2.12.0
   flutter_dotenv: ^6.0.0
-  shared_preferences: ^2.5.4
 
 dev_dependencies:
   flutter_test:
@@ -72,7 +70,7 @@ flutter:
     - assets/application/
     - assets/png/
     - assets/svg/
-    - .env
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
