@@ -1,1 +1,1 @@
-somting
+something
