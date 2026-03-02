@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sonora/global/utils/pages/page_views_exports.dart';
+import 'package:sonora/global/utils/themes/app_themes.dart';
 import 'package:sonora/presentation/home/view/home_view.dart';
 import 'package:sonora/presentation/splash/bloc/splash_bloc.dart';
 import 'package:sonora/presentation/splash/bloc/splash_event.dart';
@@ -17,6 +18,7 @@ class Sonora extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
+        theme: AppTheme.darkTheme,
         home: BlocBuilder<SplashBloc, SplashState>(
           builder: (context, state) {
             if (state is SplashFinishedState) {
