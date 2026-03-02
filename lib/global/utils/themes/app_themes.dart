@@ -11,7 +11,7 @@ class AppTheme {
       onPrimary: AppColors.onPrimary,
       secondary: AppColors.secondary,
       onSecondary: AppColors.onSecondary,
-      surface: AppColors.surface,
+      surface: AppColors.background,
       onSurface: AppColors.textPrimary,
     ),
 
@@ -43,8 +43,8 @@ class AppTheme {
 
     textTheme: const TextTheme(
       bodyLarge: TextStyle(color: AppColors.textPrimary),
-      bodyMedium: TextStyle(color: AppColors.textSecondary),
-      bodySmall: TextStyle(color: AppColors.textDisabled),
+      bodyMedium: TextStyle(color: AppColors.textPrimary),
+      bodySmall: TextStyle(color: AppColors.textPrimary),
     ),
 
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(

@@ -18,8 +18,7 @@ class Sonora extends StatelessWidget {
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: AppTheme.lightTheme,
-        darkTheme: AppTheme.darkTheme,
+        theme: AppTheme.darkTheme,
         home: BlocBuilder<SplashBloc, SplashState>(
           builder: (context, state) {
             if (state is SplashFinishedState) {
