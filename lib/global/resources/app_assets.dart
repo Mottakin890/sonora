@@ -1,11 +1,12 @@
 class AppAssets {
-  static const String svgPath = 'assets/svg';
-  static const String jpegPath = 'assets/jpeg';
-  static const String pngPath = 'assets/png';
-  static const String splashLogo = '$svgPath/splash.svg';
-  static const String demoJpeg = '$jpegPath/demo.jpeg';
-  static const String anittaPng = '$pngPath/anitta.png';
-  static const String weekendPng = '$pngPath/weekend.png';
-  static const String saopaoloPng = '$pngPath/saopaolo.png';
-  static const String scanSvg = '$svgPath/scan.svg';
+  static const String svgAssets = 'assets/svg';
+
+  static const String home = '$svgAssets/home.svg';
+  static const String filledHome = '$svgAssets/filledHome.svg';
+  static const String search = '$svgAssets/search.svg';
+  static const String filledSearch = '$svgAssets/filledSearch.svg';
+  static const String setting = '$svgAssets/setting.svg';
+  static const String filledSetting = '$svgAssets/filledSetting.svg';
+  static const String library = '$svgAssets/library.svg';
+  static const String filledLibrary = '$svgAssets/filledLibrary.svg';
 }
