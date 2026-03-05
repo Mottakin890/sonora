@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sonora/global/resources/app_assets.dart';
+import 'package:sonora/global/utils/dependency_injection/dependency_injection.dart';
 import 'package:sonora/global/utils/pages/pages.dart';
 import 'package:sonora/global/utils/themes/app_colors.dart';
 import 'package:sonora/presentation/dashboard/bloc/dashboard_bloc.dart';
@@ -13,7 +14,8 @@ import 'package:sonora/presentation/dashboard/widgets/bar_items.dart';
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});
 
-  List<Widget> get _pages => const [
+  // FIX 1: static const so the list is created once, not on every build call
+  static const List<Widget> _pages = [
     HomeView(),
     SearchView(),
     LibraryView(),
@@ -40,7 +42,6 @@ class DashboardView extends StatelessWidget {
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(50.r),
-
           child: BackdropFilter(
             filter: ImageFilter.blur(sigmaX: 15, sigmaY: 15),
             child: Container(
@@ -54,52 +55,67 @@ class DashboardView extends StatelessWidget {
                   width: 1.w,
                 ),
               ),
-              child: BlocBuilder<DashboardBloc, DashboardState>(
-                buildWhen: (previous, current) =>
-                    previous.tabIndex != current.tabIndex,
-                builder: (context, state) {
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      BarItems(
+              // FIX 3: Use BlocSelector per item so only the changed item rebuilds
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  BlocSelector<DashboardBloc, DashboardState, bool>(
+                    selector: (state) => state.tabIndex == 0,
+                    builder: (context, isSelected) {
+                      return BarItems(
                         icon: AppAssets.home,
                         filledIcon: AppAssets.filledHome,
-                        isSelected: state.tabIndex == 0,
+                        isSelected: isSelected,
                         label: 'Home',
-                        onTap: () => context.read<DashboardBloc>().add(
+                        onTap: () => sl<DashboardBloc>().add(
                           const DashboardPageChanged(tabIndex: 0),
                         ),
-                      ),
-                      BarItems(
+                      );
+                    },
+                  ),
+                  BlocSelector<DashboardBloc, DashboardState, bool>(
+                    selector: (state) => state.tabIndex == 1,
+                    builder: (context, isSelected) {
+                      return BarItems(
                         icon: AppAssets.search,
                         filledIcon: AppAssets.filledSearch,
-                        isSelected: state.tabIndex == 1,
+                        isSelected: isSelected,
                         label: 'Search',
-                        onTap: () => context.read<DashboardBloc>().add(
+                        onTap: () => sl<DashboardBloc>().add(
                           const DashboardPageChanged(tabIndex: 1),
                         ),
-                      ),
-                      BarItems(
+                      );
+                    },
+                  ),
+                  BlocSelector<DashboardBloc, DashboardState, bool>(
+                    selector: (state) => state.tabIndex == 2,
+                    builder: (context, isSelected) {
+                      return BarItems(
                         icon: AppAssets.library,
                         filledIcon: AppAssets.filledLibrary,
-                        isSelected: state.tabIndex == 2,
+                        isSelected: isSelected,
                         label: 'Library',
-                        onTap: () => context.read<DashboardBloc>().add(
+                        onTap: () => sl<DashboardBloc>().add(
                           const DashboardPageChanged(tabIndex: 2),
                         ),
-                      ),
-                      BarItems(
+                      );
+                    },
+                  ),
+                  BlocSelector<DashboardBloc, DashboardState, bool>(
+                    selector: (state) => state.tabIndex == 3,
+                    builder: (context, isSelected) {
+                      return BarItems(
                         icon: AppAssets.setting,
                         filledIcon: AppAssets.filledSetting,
-                        isSelected: state.tabIndex == 3,
+                        isSelected: isSelected,
                         label: 'Settings',
-                        onTap: () => context.read<DashboardBloc>().add(
+                        onTap: () => sl<DashboardBloc>().add(
                           const DashboardPageChanged(tabIndex: 3),
                         ),
-                      ),
-                    ],
-                  );
-                },
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
           ),
