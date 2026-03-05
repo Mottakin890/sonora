@@ -18,7 +18,6 @@ linter:
     prefer_single_quotes: false # Reverting to false as the codebase has many double quotes
     unnecessary_this: true
     always_declare_return_types: true
-    package_api_docs: false
     one_member_abstracts: false
     cascade_invocations: false
     prefer_int_literals: false

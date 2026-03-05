@@ -67,10 +67,10 @@ flutter:
   uses-material-design: true
 
   assets:
-    - assets/application/
-    - assets/png/
+  #   - assets/application/
+  #   - assets/png/
     - assets/svg/
-    - assets/jpeg/
+  #   - assets/jpeg/
 
   fonts:
     - family: Satoshi
