@@ -46,7 +46,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     emit(state.copyWith(status: HomeStatus.loading));
 
     try {
-      await Future<dynamic>.delayed(const Duration(seconds: 1));
+      await Future<dynamic>.delayed(const Duration(seconds: 2));
 
       const recentlyPlayed = [
         PlaylistEntities(
