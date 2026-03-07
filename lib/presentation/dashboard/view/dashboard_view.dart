@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sonora/global/resources/app_assets.dart';
@@ -28,9 +29,13 @@ class DashboardView extends StatelessWidget {
       body: BlocBuilder<DashboardBloc, DashboardState>(
         buildWhen: (previous, current) => previous.tabIndex != current.tabIndex,
         builder: (context, state) {
-          return IndexedStack(
-            index: state.tabIndex,
-            children: _pages,
+          return RepaintBoundary(
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              switchInCurve: Curves.easeIn,
+              switchOutCurve: Curves.easeOut,
+              child: _pages[state.tabIndex],
+            ),
           );
         },
       ),
@@ -56,9 +61,12 @@ class DashboardView extends StatelessWidget {
                     filledIcon: AppAssets.filledHome,
                     isSelected: isSelected,
                     label: 'Home',
-                    onTap: () => sl<DashboardBloc>().add(
-                      const DashboardPageChanged(tabIndex: 0),
-                    ),
+                    onTap: () async {
+                      await HapticFeedback.lightImpact();
+                      sl<DashboardBloc>().add(
+                        const DashboardPageChanged(tabIndex: 0),
+                      );
+                    },
                   );
                 },
               ),
@@ -70,9 +78,12 @@ class DashboardView extends StatelessWidget {
                     filledIcon: AppAssets.filledSearch,
                     isSelected: isSelected,
                     label: 'Search',
-                    onTap: () => sl<DashboardBloc>().add(
-                      const DashboardPageChanged(tabIndex: 1),
-                    ),
+                    onTap: () async {
+                      await HapticFeedback.lightImpact();
+                      sl<DashboardBloc>().add(
+                        const DashboardPageChanged(tabIndex: 1),
+                      );
+                    },
                   );
                 },
               ),
@@ -84,9 +95,12 @@ class DashboardView extends StatelessWidget {
                     filledIcon: AppAssets.filledLibrary,
                     isSelected: isSelected,
                     label: 'Library',
-                    onTap: () => sl<DashboardBloc>().add(
-                      const DashboardPageChanged(tabIndex: 2),
-                    ),
+                    onTap: () async {
+                      await HapticFeedback.lightImpact();
+                      sl<DashboardBloc>().add(
+                        const DashboardPageChanged(tabIndex: 2),
+                      );
+                    },
                   );
                 },
               ),
@@ -98,9 +112,12 @@ class DashboardView extends StatelessWidget {
                     filledIcon: AppAssets.filledSetting,
                     isSelected: isSelected,
                     label: 'Settings',
-                    onTap: () => sl<DashboardBloc>().add(
-                      const DashboardPageChanged(tabIndex: 3),
-                    ),
+                    onTap: () async {
+                      await HapticFeedback.lightImpact();
+                      sl<DashboardBloc>().add(
+                        const DashboardPageChanged(tabIndex: 3),
+                      );
+                    },
                   );
                 },
               ),

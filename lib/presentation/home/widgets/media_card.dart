@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sonora/domain/entities/media_entities.dart';
 import 'package:sonora/global/utils/dimentions/spacings.dart';
 import 'package:sonora/global/utils/themes/app_colors.dart';
+import 'package:sonora/global/utils/widgets/app_network_image.dart';
 
 class MediaCard extends StatelessWidget {
   final MediaEntities media;
@@ -19,31 +20,12 @@ class MediaCard extends StatelessWidget {
             ? CrossAxisAlignment.center
             : CrossAxisAlignment.start,
         children: [
-          Container(
+          AppNetworkImage(
+            imageUrl: media.imageUrl,
             width: 140.w,
             height: 140.h,
-            decoration: BoxDecoration(
-              shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
-              borderRadius: isCircle ? null : BorderRadius.circular(8.r),
-              image: DecorationImage(
-                image: ResizeImage(
-                  NetworkImage(media.imageUrl),
-                  width: (140.w * MediaQuery.devicePixelRatioOf(context))
-                      .round(),
-                  height: (140.h * MediaQuery.devicePixelRatioOf(context))
-                      .round(),
-                ),
-                fit: BoxFit.cover,
-              ),
-              color: AppColors.c334155,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black.withValues(alpha: 0.3),
-                  blurRadius: 8,
-                  offset: const Offset(0, 4),
-                ),
-              ],
-            ),
+            shape: isCircle ? BoxShape.circle : BoxShape.rectangle,
+            borderRadius: isCircle ? 0 : 8.r,
           ),
           Spacing.vertical(8),
           Text(
