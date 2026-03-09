@@ -24,11 +24,11 @@ class TopFilterChip extends StatelessWidget {
         borderRadius: BorderRadius.circular(50.r),
         backgroundColor: selected
             ? AppColors.cPrimary
-            : AppColors.c1E293B.withValues(alpha: 0.3),
+            : AppColors.cSlate800.withValues(alpha: 0.3),
         child: Text(
           label,
           style: TextStyle(
-            color: selected ? AppColors.c122017 : AppColors.cTextPrimary,
+            color: selected ? AppColors.cDarkGreenBg : AppColors.cTextPrimary,
             fontWeight: FontWeight.w600,
             fontSize: 13.sp,
           ),

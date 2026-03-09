@@ -18,7 +18,7 @@ class RecentlyPlayedCard extends StatelessWidget {
         onTap: () {},
         child: GlassBox(
           borderRadius: BorderRadius.circular(6.r),
-          backgroundColor: AppColors.c1E293B.withValues(alpha: 0.3),
+          backgroundColor: AppColors.cSlate800.withValues(alpha: 0.3),
           child: Row(
             children: [
               AppNetworkImage(

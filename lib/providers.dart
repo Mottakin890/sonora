@@ -5,6 +5,8 @@ import 'package:sonora/presentation/home/bloc/home_bloc.dart';
 import 'package:sonora/presentation/home/bloc/home_event.dart';
 import 'package:sonora/presentation/search/bloc/search_bloc.dart';
 import 'package:sonora/presentation/search/bloc/search_event.dart';
+import 'package:sonora/presentation/settings/bloc/settings_bloc.dart';
+import 'package:sonora/presentation/settings/bloc/settings_event.dart';
 
 List<BlocProvider> get appBlocProviders => [
   BlocProvider<DashboardBloc>(
@@ -15,5 +17,8 @@ List<BlocProvider> get appBlocProviders => [
   ),
   BlocProvider<SearchBloc>(
     create: (_) => sl<SearchBloc>()..add(const LoadSearchData()),
+  ),
+  BlocProvider<SettingsBloc>(
+    create: (_) => sl<SettingsBloc>()..add(const LoadSettings()),
   ),
 ];

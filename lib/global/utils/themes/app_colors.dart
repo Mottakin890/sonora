@@ -9,10 +9,18 @@ class AppColors {
   static const Color cTextPrimary = Color(0xFFFFFFFF);
   static const Color cTextSecondary = Color(0xFFB3B3B3);
   static const Color cTextDisabled = Color(0xFF535353);
-  static const Color c334155 = Color(0xFF334155);
-  static const Color c1E293B = Color(0x801E293B);
-  static const Color c122017 = Color(0xFF122017);
-  static const Color cCC122017 = Color(0xCC122017);
+
+  // Theme Colors
+  static const Color cSpotifyGreen = Color(0xFF1DB954);
+  static const Color cDarkGreenBg = Color(0xFF122017);
+  static const Color cCardBg = Color(0xFF1E2D24);
+  static const Color cSlate200 = Color(0xFFCBD5E1);
+  static const Color cSlate400 = Color(0xFF94A3B8);
+  static const Color cSlate700 = Color(0xFF334155);
+  static const Color cSlate800 = Color(0xFF1E293B);
+
+  static const Color c1E293BTranslucent = Color(0x801E293B);
+  static const Color cDarkGreenBgTranslucent = Color(0xCC122017);
   static const Color cGrey500 = Color(0xFFE0E0E0);
   static const Color cBlack26 = Color(0x42000000);
   static const Color cShimmerBase = Color(0xFF242424);

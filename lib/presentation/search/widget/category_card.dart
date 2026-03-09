@@ -73,8 +73,8 @@ class _CategoryCardState extends State<CategoryCard>
             children: [
               // Category Label
               Positioned(
-                top: 16,
-                left: 16,
+                top: 16.h,
+                left: 16.w,
                 child: Text(
                   widget.name,
                   style:  TextStyle(
