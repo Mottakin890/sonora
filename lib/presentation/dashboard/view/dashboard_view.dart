@@ -12,14 +12,17 @@ import 'package:sonora/presentation/dashboard/bloc/dashboard_event.dart';
 import 'package:sonora/presentation/dashboard/bloc/dashboard_state.dart';
 import 'package:sonora/presentation/dashboard/widgets/bar_items.dart';
 
+import 'package:sonora/presentation/library/view/library_view.dart';
+
+
 class DashboardView extends StatelessWidget {
   const DashboardView({super.key});
 
-  static const List<Widget> _pages = [
-    HomeView(),
-    SearchView(),
-    LibraryView(),
-    SettingsView(),
+  static final List<Widget> _pages = [
+    const HomeView(),
+    const SearchView(),
+    const LibraryView(),
+    const SettingsView(),
   ];
 
   @override

@@ -8,14 +8,14 @@ class RecentSearchItem extends StatefulWidget {
   final String name;
   final String type;
   final String imageUrl;
-  final VoidCallback onRemove;
+  final VoidCallback? onRemove;
 
   const RecentSearchItem({
     super.key,
     required this.name,
     required this.type,
     required this.imageUrl,
-    required this.onRemove,
+    this.onRemove,
   });
 
   @override
@@ -37,7 +37,7 @@ class _RecentSearchItemState extends State<RecentSearchItem> {
           color: _pressed ? AppColors.cWhite.withValues(alpha: .08) : AppColors.cTransparent,
           borderRadius: BorderRadius.circular(8.r),
         ),
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        padding: REdgeInsets.symmetric(horizontal: 8, vertical: 8),
         child: Row(
           children: [
             AppNetworkImage(
@@ -67,12 +67,13 @@ class _RecentSearchItemState extends State<RecentSearchItem> {
                 ],
               ),
             ),
-            IconButton(
-              onPressed: widget.onRemove,
-              icon: Icon(Icons.close, size: 18.sp, color: AppColors.cGrey500),
-              padding: const EdgeInsets.all(4),
-              constraints: const BoxConstraints(),
-            ),
+            if (widget.onRemove != null)
+              IconButton(
+                onPressed: widget.onRemove,
+                icon: Icon(Icons.close, size: 18.sp, color: AppColors.cGrey500),
+                padding: const EdgeInsets.all(4),
+                constraints: const BoxConstraints(),
+              ),
           ],
         ),
       ),

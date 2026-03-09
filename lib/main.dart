@@ -23,6 +23,6 @@ void main(List<String> args) async {
 }
 
 Future<void> _init() async {
-  WidgetsFlutterBinding.ensureInitialized();
+  WidgetsFlutterBinding.ensureInitialized(); 
   await init();
 }
