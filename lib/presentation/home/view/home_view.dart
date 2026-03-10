@@ -10,7 +10,7 @@ import 'package:sonora/presentation/home/bloc/home_state.dart';
 import 'package:sonora/presentation/home/bloc/home_event.dart';
 import 'package:sonora/domain/entities/media_entities.dart';
 import 'package:sonora/domain/entities/playlist_entities.dart';
-import 'package:sonora/common/resources/mock_data.dart';
+import 'package:sonora/domain/entities/filter_type.dart';
 import 'package:sonora/presentation/home/widgets/home_skeletons.dart';
 import 'package:sonora/presentation/home/widgets/horizontal_list.dart';
 import 'package:sonora/presentation/home/widgets/recently_played.dart';
@@ -62,23 +62,23 @@ class HomeView extends StatelessWidget {
               SliverToBoxAdapter(
                 child: SizedBox(
                   height: 44.h,
-                  child: BlocSelector<HomeBloc, HomeState, String>(
+                  child: BlocSelector<HomeBloc, HomeState, HomeFilterType>(
                     selector: (state) => state.selectedFilter,
                     builder: (context, selectedFilter) {
                       return ListView.separated(
-                        itemCount: MockData.homeFilters.length,
+                        itemCount: HomeFilterType.values.length,
                         scrollDirection: Axis.horizontal,
                         physics: const BouncingScrollPhysics(),
                         padding: AppDimensions.paddingHorizontalMd.copyWith(top: 4, bottom: 4),
                         separatorBuilder: (context, index) =>
                             Spacing.horizontal(8),
                         itemBuilder: (context, index) {
-                          final label = MockData.homeFilters[index];
+                          final filter = HomeFilterType.values[index];
                           return TopFilterChip(
-                            label: label,
-                            selected: selectedFilter == label,
+                            label: filter.label,
+                            selected: selectedFilter == filter,
                             onTap: () => context.read<HomeBloc>().add(
-                              HomeFilterChanged(label),
+                              HomeFilterChanged(filter),
                             ),
                           );
                         },

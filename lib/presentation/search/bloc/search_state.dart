@@ -1,13 +1,15 @@
 import 'package:equatable/equatable.dart';
+import 'package:sonora/domain/entities/media_entities.dart';
+import 'package:sonora/domain/entities/search_entities.dart';
 
 enum SearchStatus { initial, loading, success, failure }
 
 final class SearchState extends Equatable {
   final SearchStatus status;
-  final List<Map<String, String>> recentSearches;
-  final List<Map<String, String>> categories;
-  final List<Map<String, String>> searchResultsSongs;
-  final List<Map<String, String>> searchResultsArtists;
+  final List<RecentSearchEntity> recentSearches;
+  final List<SearchCategoryEntity> categories;
+  final List<MediaEntities> searchResultsSongs;
+  final List<MediaEntities> searchResultsArtists;
   final String query;
 
   const SearchState({
@@ -21,10 +23,10 @@ final class SearchState extends Equatable {
 
   SearchState copyWith({
     SearchStatus? status,
-    List<Map<String, String>>? recentSearches,
-    List<Map<String, String>>? categories,
-    List<Map<String, String>>? searchResultsSongs,
-    List<Map<String, String>>? searchResultsArtists,
+    List<RecentSearchEntity>? recentSearches,
+    List<SearchCategoryEntity>? categories,
+    List<MediaEntities>? searchResultsSongs,
+    List<MediaEntities>? searchResultsArtists,
     String? query,
   }) {
     return SearchState(
