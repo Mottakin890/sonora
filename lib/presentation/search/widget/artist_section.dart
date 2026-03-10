@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/dimentions/spacings.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
-import 'package:sonora/global/resources/mock_data.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
+import 'package:sonora/common/resources/mock_data.dart';
 import 'package:sonora/presentation/search/widget/artist_chip.dart';
 
 class ArtistsSection extends StatelessWidget {
@@ -10,13 +11,13 @@ class ArtistsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 32, 0, 0),
+    return RPadding(
+      padding: REdgeInsets.fromLTRB(AppDimensions.md, AppDimensions.xxl, 0, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           RPadding(
-            padding: const EdgeInsets.only(right: 16),
+            padding: EdgeInsets.only(right: AppDimensions.md),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -39,7 +40,7 @@ class ArtistsSection extends StatelessWidget {
             height: 130.h,
             child: ListView.separated(
               scrollDirection: Axis.horizontal,
-              padding: const EdgeInsets.only(right: 16),
+              padding: EdgeInsets.only(right: AppDimensions.md),
               itemCount: MockData.artists.length,
               separatorBuilder: (_, _) => Spacing.horizontal(16),
               itemBuilder: (context, i) {

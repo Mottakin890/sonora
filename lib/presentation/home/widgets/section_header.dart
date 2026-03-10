@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
 
 class SectionHeader extends StatelessWidget {
   final String title;
@@ -9,7 +10,7 @@ class SectionHeader extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RPadding(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+      padding: REdgeInsets.fromLTRB(AppDimensions.md, AppDimensions.sm, AppDimensions.md, AppDimensions.xs),
       child: Text(
         title,
         style: TextStyle(

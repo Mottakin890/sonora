@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
-import 'package:sonora/global/utils/widgets/glass_box.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
 
 class TopFilterChip extends StatelessWidget {
   final String label;
@@ -19,19 +18,28 @@ class TopFilterChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: GlassBox(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
-        borderRadius: BorderRadius.circular(50.r),
-        backgroundColor: selected
-            ? AppColors.cPrimary
-            : AppColors.cSlate800.withValues(alpha: 0.3),
-        child: Text(
-          label,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeInOut,
+        padding: REdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        decoration: BoxDecoration(
+          color: selected
+              ? AppColors.cPrimary
+              : AppColors.cSlate800.withValues(alpha: 0.3),
+          borderRadius: BorderRadius.circular(50.r),
+          border: Border.all(
+            color: selected ? AppColors.cPrimary : Colors.transparent,
+            width: 1,
+          ),
+        ),
+        child: AnimatedDefaultTextStyle(
+          duration: const Duration(milliseconds: 200),
           style: TextStyle(
             color: selected ? AppColors.cDarkGreenBg : AppColors.cTextPrimary,
-            fontWeight: FontWeight.w600,
+            fontWeight: FontWeight.w500,
             fontSize: 13.sp,
           ),
+          child: Text(label),
         ),
       ),
     );

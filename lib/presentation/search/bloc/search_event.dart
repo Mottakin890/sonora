@@ -1,17 +1,17 @@
 import 'package:equatable/equatable.dart';
 
-abstract class SearchEvent extends Equatable {
+sealed class SearchEvent extends Equatable {
   const SearchEvent();
 
   @override
   List<Object?> get props => [];
 }
 
-class LoadSearchData extends SearchEvent {
+final class LoadSearchData extends SearchEvent {
   const LoadSearchData();
 }
 
-class SearchQueryChanged extends SearchEvent {
+final class SearchQueryChanged extends SearchEvent {
   final String query;
   const SearchQueryChanged(this.query);
 
@@ -19,7 +19,7 @@ class SearchQueryChanged extends SearchEvent {
   List<Object?> get props => [query];
 }
 
-class RemoveRecentSearch extends SearchEvent {
+final class RemoveRecentSearch extends SearchEvent {
   final int index;
   const RemoveRecentSearch(this.index);
 
@@ -27,6 +27,6 @@ class RemoveRecentSearch extends SearchEvent {
   List<Object?> get props => [index];
 }
 
-class ClearSearch extends SearchEvent {
+final class ClearSearch extends SearchEvent {
   const ClearSearch();
 }

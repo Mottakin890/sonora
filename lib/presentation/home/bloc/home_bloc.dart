@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sonora/domain/entities/media_entities.dart';
 import 'package:sonora/domain/entities/playlist_entities.dart';
-import 'package:sonora/global/resources/mock_data.dart';
+import 'package:sonora/common/resources/mock_data.dart';
 import 'package:sonora/presentation/home/bloc/home_event.dart';
 import 'package:sonora/presentation/home/bloc/home_state.dart';
 
@@ -21,22 +21,41 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
     final filterLower = event.filter.toLowerCase();
     
-    List<MediaEntities> filterMedia(List<MediaEntities> source) {
+    List<T> filterItems<T>(List<T> source) {
       if (filterLower == 'all') return source;
       return source.where((e) {
-        final sub = e.subtitle.toLowerCase();
-        if (filterLower == 'music') {
-          return true;
+        if (filterLower == 'music') return true;
+        
+        var title = '';
+        var subtitle = '';
+        var isArtist = false;
+
+        if (e is MediaEntities) {
+          title = e.title.toLowerCase();
+          subtitle = e.subtitle.toLowerCase();
+          isArtist = e.isCircle;
+        } else if (e is PlaylistEntities) {
+          title = e.title.toLowerCase();
+          subtitle = 'playlist';
         }
-        return sub.contains(filterLower) || e.title.toLowerCase().contains(filterLower);
+
+        if (filterLower == 'artist') {
+          return isArtist || subtitle.contains('artist');
+        }
+        if (filterLower == 'playlist') {
+          return !isArtist && (subtitle.contains('playlist') || e is PlaylistEntities);
+        }
+        
+        return title.contains(filterLower) || subtitle.contains(filterLower);
       }).toList();
     }
 
     emit(state.copyWith(
       selectedFilter: event.filter,
-      madeForYou: filterMedia(_allMadeForYou),
-      jumpBackIn: filterMedia(_allJumpBackIn),
-      recentlyPlayedSection: filterMedia(_allRecentlyPlayedSection),
+      recentlyPlayed: filterItems(_allRecentlyPlayed),
+      madeForYou: filterItems(_allMadeForYou),
+      jumpBackIn: filterItems(_allJumpBackIn),
+      recentlyPlayedSection: filterItems(_allRecentlyPlayedSection),
     ));
   }
 
@@ -60,21 +79,43 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
 
       // Call the filter logic to properly set the initially filtered items based on current selected filter (usually 'All')
       final filterLower = state.selectedFilter.toLowerCase();
-      List<MediaEntities> filterMedia(List<MediaEntities> source) {
+      
+      List<T> filterItems<T>(List<T> source) {
         if (filterLower == 'all') return source;
         return source.where((e) {
           if (filterLower == 'music') return true;
-          return e.subtitle.toLowerCase().contains(filterLower) || e.title.toLowerCase().contains(filterLower);
+          
+          var title = '';
+          var subtitle = '';
+          var isArtist = false;
+
+          if (e is MediaEntities) {
+            title = e.title.toLowerCase();
+            subtitle = e.subtitle.toLowerCase();
+            isArtist = e.isCircle;
+          } else if (e is PlaylistEntities) {
+            title = e.title.toLowerCase();
+            subtitle = 'playlist';
+          }
+
+          if (filterLower == 'artist') {
+            return isArtist || subtitle.contains('artist');
+          }
+          if (filterLower == 'playlist') {
+            return !isArtist && (subtitle.contains('playlist') || e is PlaylistEntities);
+          }
+          
+          return title.contains(filterLower) || subtitle.contains(filterLower);
         }).toList();
       }
 
       emit(
         state.copyWith(
           status: HomeStatus.success,
-          recentlyPlayed: _allRecentlyPlayed,
-          madeForYou: filterMedia(_allMadeForYou),
-          jumpBackIn: filterMedia(_allJumpBackIn),
-          recentlyPlayedSection: filterMedia(_allRecentlyPlayedSection),
+          recentlyPlayed: filterItems(_allRecentlyPlayed),
+          madeForYou: filterItems(_allMadeForYou),
+          jumpBackIn: filterItems(_allJumpBackIn),
+          recentlyPlayedSection: filterItems(_allRecentlyPlayedSection),
         ),
       );
     } on Exception {

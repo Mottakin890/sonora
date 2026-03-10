@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
-import 'package:sonora/global/utils/widgets/app_network_image.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/widgets/app_network_image.dart';
 
 class CategoryCard extends StatefulWidget {
   final String name;
@@ -71,7 +71,6 @@ class _CategoryCardState extends State<CategoryCard>
           clipBehavior: Clip.hardEdge,
           child: Stack(
             children: [
-              // Category Label
               Positioned(
                 top: 16.h,
                 left: 16.w,
@@ -89,7 +88,7 @@ class _CategoryCardState extends State<CategoryCard>
                 right: -14,
                 bottom: -6,
                 child: Transform.rotate(
-                  angle: 0.44, // ~25 degrees in radians
+                  angle: 0.44, 
                   child: Container(
                     width: 90.w,
                     height: 90.h,

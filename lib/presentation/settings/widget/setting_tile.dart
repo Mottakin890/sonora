@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/dimentions/spacings.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
 
 class SettingToggleTile extends StatelessWidget {
   final String title;
@@ -26,7 +27,7 @@ class SettingToggleTile extends StatelessWidget {
         onChanged(!value);
       },
       child: RPadding(
-        padding: REdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: REdgeInsets.symmetric(horizontal: AppDimensions.md, vertical: AppDimensions.sm),
         child: Row(
           children: [
             Expanded(
@@ -95,7 +96,7 @@ class SettingNavigationTile extends StatelessWidget {
         onTap();
       },
       child: RPadding(
-        padding: REdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        padding: REdgeInsets.symmetric(horizontal: AppDimensions.md, vertical: AppDimensions.sm),
         child: Row(
           children: [
             if (icon != null) ...[

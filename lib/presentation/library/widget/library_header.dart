@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
-import 'package:sonora/global/utils/widgets/glass_box.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/widgets/glass_box.dart';
 
 class LibraryHeader extends StatelessWidget {
   const LibraryHeader({super.key});
@@ -15,7 +16,7 @@ class LibraryHeader extends StatelessWidget {
       flexibleSpace: FlexibleSpaceBar(
         background: GlassBox(
           backgroundColor: AppColors.cDarkGreenBg.withValues(alpha: 0.8),
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+          padding: AppDimensions.paddingHorizontalMd.copyWith(top: AppDimensions.xs, bottom: AppDimensions.xs),
           child: Row(
             children: [
               Expanded(
@@ -29,18 +30,10 @@ class LibraryHeader extends StatelessWidget {
                 ),
               ),
               IconButton(
-                icon: const Icon(
+                icon:  Icon(
                   Icons.search,
-                  color: Colors.white,
-                  size: 28,
-                ),
-                onPressed: () {},
-              ),
-              IconButton(
-                icon: const Icon(
-                  Icons.add,
-                  color: Colors.white,
-                  size: 28,
+                  color: AppColors.cWhite,
+                  size: 28.sp,
                 ),
                 onPressed: () {},
               ),

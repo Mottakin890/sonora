@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/resources/mock_data.dart';
-import 'package:sonora/global/utils/dimentions/spacings.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
+import 'package:sonora/common/resources/mock_data.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
 import 'package:sonora/presentation/home/widgets/top_filter_chip.dart';
 import 'package:sonora/presentation/library/widget/library_header.dart';
 import 'package:sonora/presentation/library/widget/library_item_tile.dart';
@@ -32,8 +33,8 @@ class _LibraryViewState extends State<LibraryView> {
                   child: ListView.separated(
                     itemCount: MockData.libraryFilters.length,
                     scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
+                    padding: REdgeInsets.symmetric(
+                      horizontal: AppDimensions.md,
                       vertical: 6,
                     ),
                     separatorBuilder: (context, index) => Spacing.horizontal(8),
@@ -53,7 +54,7 @@ class _LibraryViewState extends State<LibraryView> {
                 ),
               ),
               SliverPadding(
-                padding: const EdgeInsets.only(top: 8, bottom: 100),
+                padding: REdgeInsets.only(top: AppDimensions.xs, bottom: 100),
                 sliver: SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
@@ -92,11 +93,11 @@ class _LibraryViewState extends State<LibraryView> {
                 color: Colors.transparent,
                 child: InkWell(
                   onTap: () {},
-                  borderRadius: BorderRadius.circular(99),
-                  child: const Icon(
+                  borderRadius: BorderRadius.circular(99.r),
+                  child: Icon(
                     Icons.add,
                     color: AppColors.cDarkGreenBg,
-                    size: 32,
+                    size: 32.sp,
                   ),
                 ),
               ),

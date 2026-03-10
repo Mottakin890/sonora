@@ -5,7 +5,10 @@ import 'package:sonora/presentation/dashboard/bloc/dashboard_state.dart';
 class DashboardBloc extends Bloc<DashboardEvent, DashboardState> {
   DashboardBloc() : super(const DashboardState()) {
     on<DashboardPageChanged>((event, emit) {
-      emit(state.copyWith(tabIndex: event.tabIndex));
+      emit(state.copyWith(
+        status: DashboardStatus.success,
+        tabIndex: event.tabIndex,
+      ));
     });
   }
 }

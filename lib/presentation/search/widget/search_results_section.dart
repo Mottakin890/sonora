@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
 import 'package:sonora/presentation/search/widget/recent_search_item.dart';
 import 'package:sonora/presentation/search/widget/top_result_section.dart';
 
@@ -16,7 +17,6 @@ class SearchResultsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Determine the top result. For simplicity, we choose the first artist if available, otherwise the first song.
     final topResult = artists.isNotEmpty ? artists.first : (songs.isNotEmpty ? songs.first : null);
 
     if (topResult == null) {
@@ -39,7 +39,7 @@ class SearchResultsSection extends StatelessWidget {
         
         if (songs.isNotEmpty) ...[
           RPadding(
-            padding: REdgeInsets.fromLTRB(16, 24, 16, 12),
+            padding: REdgeInsets.fromLTRB(AppDimensions.md, AppDimensions.xl, AppDimensions.md, AppDimensions.sm),
             child: Text(
               'Songs',
               style: TextStyle(
@@ -59,7 +59,7 @@ class SearchResultsSection extends StatelessWidget {
 
         if (artists.length > (artists.first == topResult ? 1 : 0)) ...[
           RPadding(
-            padding: REdgeInsets.fromLTRB(16, 24, 16, 12),
+            padding: REdgeInsets.fromLTRB(AppDimensions.md, AppDimensions.xl, AppDimensions.md, AppDimensions.sm),
             child: Text(
               'Artists',
               style: TextStyle(

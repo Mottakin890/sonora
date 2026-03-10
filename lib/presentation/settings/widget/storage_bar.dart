@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sonora/domain/entities/storage_entity.dart';
-import 'package:sonora/global/utils/dimentions/spacings.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
 
 class StorageBar extends StatelessWidget {
   final StorageEntity storageInfo;
@@ -24,7 +25,7 @@ class StorageBar extends StatelessWidget {
     final otherFlex     = (100 - downloadsFlex - cacheFlex).clamp(1, 98);
 
     return RPadding(
-      padding: REdgeInsets.all(16),
+      padding: AppDimensions.paddingAllMd,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -43,7 +44,7 @@ class StorageBar extends StatelessWidget {
           ),
           Spacing.vertical(8),
           ClipRRect(
-            borderRadius: BorderRadius.circular(99),
+            borderRadius: BorderRadius.circular(50.r),
             child: SizedBox(
               height: 8.h,
               child: Row(
@@ -76,7 +77,7 @@ class StorageBar extends StatelessWidget {
               style: OutlinedButton.styleFrom(
                 side: const BorderSide(color: AppColors.cSlate700),
                 shape: const StadiumBorder(),
-                padding: REdgeInsets.symmetric(vertical: 12),
+                padding: REdgeInsets.symmetric(vertical: AppDimensions.sm),
               ),
               child: Text(
                 'Delete cache',
@@ -97,8 +98,8 @@ class StorageBar extends StatelessWidget {
     return Row(
       children: [
         Container(
-          width: 8,
-          height: 8,
+          width: 8.w,
+          height: 8.w,
           decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         Spacing.horizontal(6),

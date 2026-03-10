@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/dimentions/spacings.dart';
-import 'package:sonora/global/utils/widgets/skeleton.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
+import 'package:sonora/common/utils/widgets/skeleton.dart';
 
 class RecentlyPlayedSkeleton extends StatelessWidget {
   const RecentlyPlayedSkeleton({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+    return RPadding(
+      padding: REdgeInsets.fromLTRB(AppDimensions.md, AppDimensions.xs, AppDimensions.md, 0),
       child: GridView.builder(
         shrinkWrap: true,
         padding: EdgeInsets.zero,
@@ -36,15 +37,15 @@ class SectionSkeleton extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
+        RPadding(
+          padding: REdgeInsets.fromLTRB(AppDimensions.md, AppDimensions.sm, AppDimensions.md, AppDimensions.xs),
           child: Skeleton(height: 20.h, width: 120.w),
         ),
         SizedBox(
           height: 190.h,
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            padding: const EdgeInsets.symmetric(horizontal: 16),
+            padding: AppDimensions.paddingHorizontalMd,
             itemCount: 5,
             separatorBuilder: (_, _) => Spacing.horizontal(16),
             itemBuilder: (ctx, i) => Column(

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
-import 'package:sonora/global/utils/widgets/app_network_image.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/widgets/app_network_image.dart';
 
 class LibraryItemTile extends StatelessWidget {
   final Map<String, dynamic> item;
@@ -16,12 +18,12 @@ class LibraryItemTile extends StatelessWidget {
 
     return InkWell(
       onTap: () {},
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: RPadding(
+        padding: AppDimensions.paddingHorizontalMd.copyWith(top: AppDimensions.xs, bottom: AppDimensions.xs),
         child: Row(
           children: [
             _buildLeading(isLikedSongs, isCircle, item['imageUrl'] as String?),
-            const SizedBox(width: 16),
+            Spacing.horizontal(16),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,12 +42,12 @@ class LibraryItemTile extends StatelessWidget {
                   Row(
                     children: [
                       if (isPinned) ...[
-                        const Icon(
+                         Icon(
                           Icons.push_pin,
                           color: AppColors.cSpotifyGreen,
-                          size: 14,
+                          size: 14.sp,
                         ),
-                        const SizedBox(width: 4),
+                        Spacing.horizontal(4)
                       ],
                       Expanded(
                         child: Text(
@@ -89,10 +91,10 @@ class LibraryItemTile extends StatelessWidget {
             ),
           ],
         ),
-        child: const Icon(
+        child: Icon(
           Icons.favorite,
-          color: Colors.white,
-          size: 28,
+          color: AppColors.cWhite,
+          size: 28.sp,
         ),
       );
     }

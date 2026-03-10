@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
 
 class AppTheme {
   static ThemeData darkTheme = ThemeData(

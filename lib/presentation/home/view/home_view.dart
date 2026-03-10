@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/dimentions/spacings.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
-import 'package:sonora/presentation/home/widgets/horizontal_list.dart';
-import 'package:sonora/presentation/home/widgets/recently_played.dart';
-import 'package:sonora/presentation/home/widgets/section_header.dart';
-import 'package:sonora/presentation/home/widgets/top_filter_chip.dart';
-import 'package:sonora/presentation/home/widgets/time_based_header.dart';
-import 'package:sonora/global/utils/widgets/glass_box.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/widgets/glass_box.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sonora/presentation/home/bloc/home_bloc.dart';
 import 'package:sonora/presentation/home/bloc/home_state.dart';
 import 'package:sonora/presentation/home/bloc/home_event.dart';
 import 'package:sonora/domain/entities/media_entities.dart';
 import 'package:sonora/domain/entities/playlist_entities.dart';
+import 'package:sonora/common/resources/mock_data.dart';
 import 'package:sonora/presentation/home/widgets/home_skeletons.dart';
-import 'package:sonora/global/resources/mock_data.dart';
+import 'package:sonora/presentation/home/widgets/horizontal_list.dart';
+import 'package:sonora/presentation/home/widgets/recently_played.dart';
+import 'package:sonora/presentation/home/widgets/section_header.dart';
+import 'package:sonora/presentation/home/widgets/time_based_header.dart';
+import 'package:sonora/presentation/home/widgets/top_filter_chip.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -28,7 +29,6 @@ class HomeView extends StatelessWidget {
         children: [
           CustomScrollView(
             slivers: [
-              // ── Sticky Header
               SliverAppBar(
                 pinned: true,
                 backgroundColor: Colors.transparent,
@@ -38,10 +38,7 @@ class HomeView extends StatelessWidget {
                     backgroundColor: AppColors.cDarkGreenBg.withValues(
                       alpha: 0.8,
                     ),
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 16,
-                      vertical: 8,
-                    ),
+                    padding: AppDimensions.paddingHorizontalMd.copyWith(top: AppDimensions.xs, bottom: AppDimensions.xs),
                     child: Row(
                       children: [
                         const Expanded(
@@ -71,10 +68,8 @@ class HomeView extends StatelessWidget {
                       return ListView.separated(
                         itemCount: MockData.homeFilters.length,
                         scrollDirection: Axis.horizontal,
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 16,
-                          vertical: 6,
-                        ),
+                        physics: const BouncingScrollPhysics(),
+                        padding: AppDimensions.paddingHorizontalMd.copyWith(top: 4, bottom: 4),
                         separatorBuilder: (context, index) =>
                             Spacing.horizontal(8),
                         itemBuilder: (context, index) {
@@ -123,79 +118,31 @@ class HomeView extends StatelessWidget {
                   }
 
                   return SliverToBoxAdapter(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        // ── Recently Played Grid
-                        BlocSelector<
-                          HomeBloc,
-                          HomeState,
-                          List<PlaylistEntities>
-                        >(
-                          selector: (state) => state.recentlyPlayed,
-                          builder: (context, recentlyPlayed) {
-                            if (recentlyPlayed.isEmpty) {
-                              return const SizedBox.shrink();
-                            }
-                            return Padding(
-                              padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
-                              child: GridView.builder(
-                                shrinkWrap: true,
-                                padding: EdgeInsets.zero,
-                                physics: const NeverScrollableScrollPhysics(),
-                                gridDelegate:
-                                    const SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      mainAxisSpacing: 8,
-                                      crossAxisSpacing: 8,
-                                      childAspectRatio: 3.2,
-                                    ),
-                                itemCount: recentlyPlayed.length,
-                                itemBuilder: (context, i) => RecentlyPlayedCard(
-                                  recentlyPlayed[i],
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-
-                        // ── Made For You
-                        const SectionHeader('Made For You'),
-                        BlocSelector<HomeBloc, HomeState, List<MediaEntities>>(
-                          selector: (state) => state.madeForYou,
-                          builder: (context, madeForYou) {
-                            return HorizontalList(
-                              media: madeForYou,
-                              imageShape: BoxShape.rectangle,
-                            );
-                          },
-                        ),
-
-                        // ── Jump Back In
-                        const SectionHeader('Jump Back In'),
-                        BlocSelector<HomeBloc, HomeState, List<MediaEntities>>(
-                          selector: (state) => state.jumpBackIn,
-                          builder: (context, jumpBackIn) {
-                            return HorizontalList(
-                              media: jumpBackIn,
-                              imageShape: BoxShape.circle,
-                            );
-                          },
-                        ),
-
-                        // ── Recently Played Section
-                        const SectionHeader('Recently Played'),
-                        BlocSelector<HomeBloc, HomeState, List<MediaEntities>>(
-                          selector: (state) => state.recentlyPlayedSection,
-                          builder: (context, recentlyPlayedSection) {
-                            return HorizontalList(
-                              media: recentlyPlayedSection,
-                              imageShape: BoxShape.rectangle,
-                            );
-                          },
-                        ),
-                        Spacing.vertical(100),
-                      ],
+                    child: AnimatedSize(
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _buildRecentlyPlayedGrid(state.recentlyPlayed),
+                          _buildSection(
+                            'Made For You',
+                            state.madeForYou,
+                            BoxShape.rectangle,
+                          ),
+                          _buildSection(
+                            'Jump Back In',
+                            state.jumpBackIn,
+                            BoxShape.circle,
+                          ),
+                          _buildSection(
+                            'Recently Played',
+                            state.recentlyPlayedSection,
+                            BoxShape.rectangle,
+                          ),
+                          Spacing.vertical(100),
+                        ],
+                      ),
                     ),
                   );
                 },
@@ -204,6 +151,46 @@ class HomeView extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+
+  Widget _buildRecentlyPlayedGrid(List<PlaylistEntities> recentlyPlayed) {
+    if (recentlyPlayed.isEmpty) return const SizedBox.shrink();
+    return RPadding(
+      padding: REdgeInsets.fromLTRB(
+        AppDimensions.md,
+        AppDimensions.xs,
+        AppDimensions.md,
+        0,
+      ),
+      child: GridView.builder(
+        shrinkWrap: true,
+        padding: EdgeInsets.zero,
+        physics: const NeverScrollableScrollPhysics(),
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,
+          mainAxisSpacing: 8,
+          crossAxisSpacing: 8,
+          childAspectRatio: 3.2,
+        ),
+        itemCount: recentlyPlayed.length,
+        itemBuilder: (context, i) => RecentlyPlayedCard(recentlyPlayed[i]),
+      ),
+    );
+  }
+
+  Widget _buildSection(
+    String title,
+    List<MediaEntities> data,
+    BoxShape shape,
+  ) {
+    if (data.isEmpty) return const SizedBox.shrink();
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SectionHeader(title),
+        HorizontalList(media: data, imageShape: shape),
+      ],
     );
   }
 }

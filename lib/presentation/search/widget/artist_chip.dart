@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/dimentions/spacings.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
 
 class ArtistChip extends StatefulWidget {
   final String name;
@@ -36,7 +36,7 @@ class _ArtistChipState extends State<ArtistChip> {
                   width: 2.5.w,
                 ),
               ),
-              padding: const EdgeInsets.all(3),
+              padding: REdgeInsets.all(3),
               child: ClipOval(
                 child: Image.network(
                   widget.imageUrl,

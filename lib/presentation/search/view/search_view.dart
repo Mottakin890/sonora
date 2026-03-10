@@ -3,11 +3,13 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/dimentions/spacings.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
 import 'package:sonora/presentation/search/bloc/search_bloc.dart';
 import 'package:sonora/presentation/search/bloc/search_event.dart';
 import 'package:sonora/presentation/search/bloc/search_state.dart';
+import 'package:sonora/presentation/search/widget/catagory_skeleton.dart';
 import 'package:sonora/presentation/search/widget/category_card.dart';
 import 'package:sonora/presentation/search/widget/recent_search_item.dart';
 import 'package:sonora/presentation/search/widget/search_header_delegate.dart';
@@ -71,7 +73,6 @@ class _SearchViewState extends State<SearchView> {
         },
         child: CustomScrollView(
           slivers: [
-            // Sticky Header
             BlocSelector<SearchBloc, SearchState, bool>(
               selector: (state) => state.query.isNotEmpty,
               builder: (context, hasText) {
@@ -88,7 +89,6 @@ class _SearchViewState extends State<SearchView> {
               },
             ),
 
-            // Body Content
             BlocBuilder<SearchBloc, SearchState>(
               buildWhen: (previous, current) =>
                   previous.query != current.query ||
@@ -100,7 +100,7 @@ class _SearchViewState extends State<SearchView> {
               builder: (context, state) {
                 if (state.query.isNotEmpty) {
                   return SliverPadding(
-                    padding: EdgeInsets.only(bottom: 110.h),
+                    padding: REdgeInsets.only(bottom: 110),
                     sliver: SearchResultsSection(
                       songs: state.searchResultsSongs,
                       artists: state.searchResultsArtists,
@@ -109,18 +109,17 @@ class _SearchViewState extends State<SearchView> {
                 }
 
                 return SliverPadding(
-                  padding: REdgeInsets.fromLTRB(16, 0, 16, 110.h),
+                  padding: REdgeInsets.fromLTRB(AppDimensions.md, 0, AppDimensions.md, 110.h),
                   sliver: SliverList(
                     delegate: SliverChildListDelegate([
                       Spacing.vertical(8),
-                      // Recent Searches Header
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text(
+                         Text(
                             'Recent searches',
                             style: TextStyle(
-                                fontSize: 17,
+                                fontSize: 17.sp,
                                 fontWeight: FontWeight.bold,
                                 color: AppColors.cWhite),
                           ),
@@ -132,10 +131,10 @@ class _SearchViewState extends State<SearchView> {
                               minimumSize: Size.zero,
                               tapTargetSize: MaterialTapTargetSize.shrinkWrap,
                             ),
-                            child: const Text(
+                            child:  Text(
                               'See all',
                               style: TextStyle(
-                                  fontSize: 13, fontWeight: FontWeight.w600),
+                                  fontSize: 13.sp, fontWeight: FontWeight.w600),
                             ),
                           ),
                         ],
@@ -169,17 +168,15 @@ class _SearchViewState extends State<SearchView> {
 
                       Spacing.vertical(24),
 
-                      // Browse All Header
-                      const Text(
+                       Text(
                         'Browse all',
                         style: TextStyle(
-                            fontSize: 17,
+                            fontSize: 17.sp,
                             fontWeight: FontWeight.bold,
                             color: AppColors.cWhite),
                       ),
                       Spacing.vertical(16),
 
-                      // Category Grid
                       if ((state.status == SearchStatus.loading ||
                               state.status == SearchStatus.initial) &&
                           state.categories.isEmpty) ...[
