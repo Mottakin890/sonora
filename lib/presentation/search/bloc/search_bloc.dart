@@ -1,5 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sonora/global/resources/mock_data.dart';
+import 'package:sonora/common/resources/mock_data.dart';
 import 'package:sonora/presentation/search/bloc/search_event.dart';
 import 'package:sonora/presentation/search/bloc/search_state.dart';
 

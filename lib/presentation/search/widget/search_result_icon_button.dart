@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
 
 class SearchResultIconButton extends StatelessWidget {
   final IconData icon;

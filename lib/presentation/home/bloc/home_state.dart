@@ -4,7 +4,7 @@ import 'package:sonora/domain/entities/playlist_entities.dart';
 
 enum HomeStatus { initial, loading, success, failure }
 
-class HomeState extends Equatable {
+final class HomeState extends Equatable {
   final HomeStatus status;
   final List<PlaylistEntities> recentlyPlayed;
   final List<MediaEntities> madeForYou;

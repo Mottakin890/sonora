@@ -2,7 +2,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sonora/app.dart';
-import 'package:sonora/global/utils/dependency_injection/dependency_injection.dart';
+import 'package:sonora/common/utils/dependency_injection/dependency_injection.dart';
 
 void main(List<String> args) async {
   await _init();
@@ -23,6 +23,6 @@ void main(List<String> args) async {
 }
 
 Future<void> _init() async {
-  WidgetsFlutterBinding.ensureInitialized(); 
-  await init();
+  WidgetsFlutterBinding.ensureInitialized();
+  await DependencyInjection.init();
 }

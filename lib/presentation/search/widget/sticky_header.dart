@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/dimentions/spacings.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
 import 'package:sonora/presentation/search/widget/search_result_icon_button.dart';
 
 class StickyHeader extends StatefulWidget {
@@ -25,7 +26,7 @@ class _StickyHeaderState extends State<StickyHeader> {
     final top = MediaQuery.of(context).padding.top;
     return Container(
       color: AppColors.cDarkGreenBg.withValues(alpha: 0.95),
-      padding: EdgeInsets.fromLTRB(16, top + 8, 16, 12),
+      padding: REdgeInsets.fromLTRB(AppDimensions.md, top + AppDimensions.xs, AppDimensions.md, AppDimensions.sm),
       child: Column(
         children: [
           // Title row
@@ -54,7 +55,7 @@ class _StickyHeaderState extends State<StickyHeader> {
             child: Row(
               children: [
                  RPadding(
-                  padding: const EdgeInsets.symmetric(horizontal: 14),
+                  padding: REdgeInsets.symmetric(horizontal: 14),
                   child: Icon(Icons.search, color: AppColors.cSlate400, size: 22.sp),
                 ),
                 Expanded(
@@ -70,7 +71,7 @@ class _StickyHeaderState extends State<StickyHeader> {
                   ),
                 ),
                 RPadding(
-                  padding: const EdgeInsets.only(right: 12),
+                  padding: REdgeInsets.only(right: AppDimensions.sm),
                   child: GestureDetector(
                     onTap: _controller.clear,
                     child:  Icon(Icons.cancel, color: AppColors.cSlate400, size: 20.sp),

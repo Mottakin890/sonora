@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/dimentions/spacings.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
-import 'package:sonora/global/utils/widgets/app_network_image.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/widgets/app_network_image.dart';
 
 class RecentSearchItem extends StatefulWidget {
   final String name;
@@ -37,7 +38,7 @@ class _RecentSearchItemState extends State<RecentSearchItem> {
           color: _pressed ? AppColors.cWhite.withValues(alpha: .08) : AppColors.cTransparent,
           borderRadius: BorderRadius.circular(8.r),
         ),
-        padding: REdgeInsets.symmetric(horizontal: 8, vertical: 8),
+        padding: REdgeInsets.all(AppDimensions.xs),
         child: Row(
           children: [
             AppNetworkImage(
@@ -71,7 +72,7 @@ class _RecentSearchItemState extends State<RecentSearchItem> {
               IconButton(
                 onPressed: widget.onRemove,
                 icon: Icon(Icons.close, size: 18.sp, color: AppColors.cGrey500),
-                padding: const EdgeInsets.all(4),
+                padding: REdgeInsets.all(AppDimensions.xxs),
                 constraints: const BoxConstraints(),
               ),
           ],

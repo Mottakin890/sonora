@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/dimentions/spacings.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
-import 'package:sonora/global/utils/widgets/app_network_image.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/common/utils/widgets/app_network_image.dart';
 import 'package:sonora/presentation/search/widget/play_button.dart';
 
 class TopResultCard extends StatelessWidget {
@@ -44,7 +45,7 @@ class TopResultCard extends StatelessWidget {
           ),
           // Info row
           RPadding(
-            padding: REdgeInsets.fromLTRB(20, 20, 20, 20),
+            padding: REdgeInsets.all(AppDimensions.lg),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -61,15 +62,15 @@ class TopResultCard extends StatelessWidget {
                   children: [
                     Container(
                       padding:
-                          const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                          REdgeInsets.symmetric(horizontal: AppDimensions.sm, vertical: 5),
                       decoration: BoxDecoration(
                         color: AppColors.cSlate700,
                         borderRadius: BorderRadius.circular(50.r),
                       ),
                       child: Text(
                         type.toUpperCase(),
-                        style: const TextStyle(
-                          fontSize: 11,
+                        style:  TextStyle(
+                          fontSize: 11.sp,
                           fontWeight: FontWeight.w800,
                           letterSpacing: 1.2,
                           color: AppColors.cSlate200,

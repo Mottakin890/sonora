@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/widgets/skeleton.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
+import 'package:sonora/common/utils/widgets/skeleton.dart';
 
 class RecentSearchSkeleton extends StatelessWidget {
   const RecentSearchSkeleton({super.key});
@@ -8,18 +10,18 @@ class RecentSearchSkeleton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: List.generate(3, (index) => Padding(
-        padding: const EdgeInsets.symmetric(vertical: 8),
+      children: List.generate(3, (index) => RPadding(
+        padding: AppDimensions.paddingVerticalXs,
         child: Row(
           children: [
-            const Skeleton(width: 50, height: 50, borderRadius: 25),
-            const SizedBox(width: 12),
+             Skeleton(width: 50.w, height: 50.h, borderRadius: 25.r),
+            Spacing.horizontal(12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Skeleton(height: 14.h, width: 120.w),
-                  const SizedBox(height: 4),
+                  Spacing.vertical(4),
                   Skeleton(height: 12.h, width: 80.w),
                 ],
               ),
@@ -27,26 +29,6 @@ class RecentSearchSkeleton extends StatelessWidget {
           ],
         ),
       )),
-    );
-  }
-}
-
-class CategorySkeleton extends StatelessWidget {
-  const CategorySkeleton({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(),
-      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        crossAxisSpacing: 16,
-        mainAxisSpacing: 16,
-        childAspectRatio: 1,
-      ),
-      itemCount: 6,
-      itemBuilder: (context, index) => const Skeleton(borderRadius: 16),
     );
   }
 }

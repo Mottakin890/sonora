@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sonora/domain/entities/playlist_entities.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
-import 'package:sonora/global/utils/widgets/app_network_image.dart';
-import 'package:sonora/global/utils/widgets/glass_box.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/widgets/app_network_image.dart';
+import 'package:sonora/common/utils/widgets/glass_box.dart';
 
 class RecentlyPlayedCard extends StatelessWidget {
   final PlaylistEntities platlist;
@@ -29,7 +30,7 @@ class RecentlyPlayedCard extends StatelessWidget {
               ),
               Expanded(
                 child: RPadding(
-                  padding: const EdgeInsets.symmetric(horizontal: 8),
+                  padding: AppDimensions.paddingHorizontalXs,
                   child: Text(
                     platlist.title,
                     maxLines: 2,

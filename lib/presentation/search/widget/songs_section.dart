@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/dimentions/spacings.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
-import 'package:sonora/global/resources/mock_data.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
+import 'package:sonora/common/resources/mock_data.dart';
 import 'package:sonora/presentation/search/widget/song_item.dart';
 
 class SongsSection extends StatelessWidget {
@@ -10,8 +11,8 @@ class SongsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 32, 16, 0),
+    return RPadding(
+      padding: REdgeInsets.fromLTRB(AppDimensions.md, AppDimensions.xxl, AppDimensions.md, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

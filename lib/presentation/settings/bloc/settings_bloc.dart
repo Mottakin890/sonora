@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sonora/domain/usecases/clear_cache_usecase.dart';
 import 'package:sonora/domain/usecases/get_storage_info_usecase.dart';
-import 'package:sonora/global/resources/mock_data.dart';
+import 'package:sonora/common/resources/mock_data.dart';
 import 'package:sonora/presentation/settings/bloc/settings_event.dart';
 import 'package:sonora/presentation/settings/bloc/settings_state.dart';
 
@@ -12,7 +12,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
   SettingsBloc({
     required this.getStorageInfoUseCase,
     required this.clearCacheUseCase,
-  }) : super(SettingsInitial()) {
+  }) : super(const SettingsState()) {
     on<LoadSettings>(_onLoadSettings);
     on<ToggleSetting>(_onToggleSetting);
     on<ClearStorageCache>(_onClearStorageCache);
@@ -22,7 +22,7 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     LoadSettings event,
     Emitter<SettingsState> emit,
   ) async {
-    emit(SettingsLoading());
+    emit(state.copyWith(status: SettingsStatus.loading));
     try {
       final storageInfo = await getStorageInfoUseCase();
       final sections = MockData.settingsSections;
@@ -31,22 +31,25 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
         'audio_normalization': true,
         'mono_audio': false,
       };
-      emit(SettingsLoaded(
+      emit(state.copyWith(
+        status: SettingsStatus.success,
         sections: sections,
         toggles: toggles,
         storageInfo: storageInfo,
       ));
     } on Exception catch (e) {
-      emit(SettingsError(e.toString()));
+      emit(state.copyWith(
+        status: SettingsStatus.failure,
+        errorMessage: e.toString(),
+      ));
     }
   }
 
   void _onToggleSetting(ToggleSetting event, Emitter<SettingsState> emit) {
-    if (state is SettingsLoaded) {
-      final current = state as SettingsLoaded;
-      final newToggles = Map<String, bool>.from(current.toggles)
+    if (state.status == SettingsStatus.success) {
+      final newToggles = Map<String, bool>.from(state.toggles)
         ..[event.key] = event.value;
-      emit(current.copyWith(toggles: newToggles));
+      emit(state.copyWith(toggles: newToggles));
     }
   }
 
@@ -54,14 +57,16 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
     ClearStorageCache event,
     Emitter<SettingsState> emit,
   ) async {
-    if (state is SettingsLoaded) {
-      final current = state as SettingsLoaded;
+    if (state.status == SettingsStatus.success) {
       try {
         await clearCacheUseCase();
         final newStorage = await getStorageInfoUseCase();
-        emit(current.copyWith(storageInfo: newStorage));
+        emit(state.copyWith(storageInfo: newStorage));
       } on Exception catch (e) {
-        emit(SettingsError('Failed to clear cache: $e'));
+        emit(state.copyWith(
+          status: SettingsStatus.failure,
+          errorMessage: 'Failed to clear cache: $e',
+        ));
       }
     }
   }

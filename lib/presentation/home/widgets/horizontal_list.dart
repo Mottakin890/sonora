@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sonora/domain/entities/media_entities.dart';
-import 'package:sonora/global/utils/dimentions/spacings.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
 import 'package:sonora/presentation/home/widgets/media_card.dart';
 
 class HorizontalList extends StatelessWidget {
@@ -19,9 +20,9 @@ class HorizontalList extends StatelessWidget {
       height: 190.h,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        padding: const EdgeInsets.symmetric(horizontal: 16),
+        padding: AppDimensions.paddingHorizontalMd,
         itemCount: media.length,
-        separatorBuilder: (_, _) =>  Spacing.horizontal(16),
+        separatorBuilder: (_, _) =>  Spacing.horizontal(AppDimensions.md),
         itemBuilder: (ctx, i) => MediaCard(media[i], imageShape),
       ),
     );

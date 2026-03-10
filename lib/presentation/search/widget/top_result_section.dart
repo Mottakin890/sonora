@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/dimentions/spacings.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
 import 'package:sonora/presentation/search/widget/top_result_card.dart';
 
 class TopResultSection extends StatelessWidget {
@@ -15,7 +16,7 @@ class TopResultSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RPadding(
-      padding: REdgeInsets.fromLTRB(16, 24, 16, 0),
+      padding: REdgeInsets.fromLTRB(AppDimensions.md, AppDimensions.xl, AppDimensions.md, 0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

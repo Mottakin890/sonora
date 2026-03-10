@@ -2,7 +2,7 @@ import 'package:equatable/equatable.dart';
 
 enum SearchStatus { initial, loading, success, failure }
 
-class SearchState extends Equatable {
+final class SearchState extends Equatable {
   final SearchStatus status;
   final List<Map<String, String>> recentSearches;
   final List<Map<String, String>> categories;

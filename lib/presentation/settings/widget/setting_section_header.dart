@@ -1,23 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
 
 class SettingSectionHeader extends StatelessWidget {
   final String title;
 
-  const SettingSectionHeader({super.key, required this.title});
+  const SettingSectionHeader({
+    super.key,
+    required this.title,
+  });
 
   @override
   Widget build(BuildContext context) {
     return RPadding(
-      padding: REdgeInsets.only(left: 16, right: 16, top: 24, bottom: 8),
+      padding: REdgeInsets.fromLTRB(
+        AppDimensions.md,
+        AppDimensions.lg,
+        AppDimensions.md,
+        AppDimensions.xs,
+      ),
       child: Text(
-        title.toUpperCase(),
+        title,
         style: TextStyle(
-          color: AppColors.cPrimary,
-          fontSize: 13.sp,
+          color: AppColors.cWhite,
+          fontSize: 14.sp,
           fontWeight: FontWeight.bold,
-          letterSpacing: 1.2,
+          letterSpacing: 0.5,
         ),
       ),
     );

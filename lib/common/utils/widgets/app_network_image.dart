@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:sonora/global/utils/widgets/skeleton.dart';
+import 'package:sonora/common/utils/widgets/skeleton.dart';
 
 class AppNetworkImage extends StatelessWidget {
   final String imageUrl;

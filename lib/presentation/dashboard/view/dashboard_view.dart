@@ -2,17 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/resources/app_assets.dart';
-import 'package:sonora/global/utils/dependency_injection/dependency_injection.dart';
-import 'package:sonora/global/utils/pages/pages.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
-import 'package:sonora/global/utils/widgets/glass_box.dart';
+import 'package:sonora/common/resources/app_assets.dart';
+import 'package:sonora/common/utils/dependency_injection/dependency_injection.dart';
+import 'package:sonora/common/utils/exports/pages.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/widgets/glass_box.dart';
 import 'package:sonora/presentation/dashboard/bloc/dashboard_bloc.dart';
 import 'package:sonora/presentation/dashboard/bloc/dashboard_event.dart';
 import 'package:sonora/presentation/dashboard/bloc/dashboard_state.dart';
 import 'package:sonora/presentation/dashboard/widgets/bar_items.dart';
-
-import 'package:sonora/presentation/library/view/library_view.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
 
 
 class DashboardView extends StatelessWidget {
@@ -43,14 +42,14 @@ class DashboardView extends StatelessWidget {
         },
       ),
       bottomNavigationBar: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 60, vertical: 24),
+        margin: REdgeInsets.symmetric(horizontal: 60, vertical: AppDimensions.xl),
         decoration: const BoxDecoration(
           color: AppColors.cTransparent,
         ),
         child: GlassBox(
           borderRadius: BorderRadius.circular(50.r),
           height: 64.h,
-          padding: const EdgeInsets.symmetric(horizontal: 28),
+          padding: REdgeInsets.symmetric(horizontal: 28),
           borderColor: AppColors.cUnselected,
           borderWidth: 1.w,
           child: Row(

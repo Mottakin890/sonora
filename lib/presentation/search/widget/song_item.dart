@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/dimentions/spacings.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
 
 class SongItem extends StatefulWidget {
   final String title;
@@ -24,8 +25,8 @@ class _SongItemState extends State<SongItem> {
       onTapCancel: () => setState(() => _hovered = false),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 100),
-        padding: const EdgeInsets.all(10),
-        margin: const EdgeInsets.only(bottom: 4),
+        padding: REdgeInsets.all(10),
+        margin: REdgeInsets.only(bottom: AppDimensions.xxs),
         decoration: BoxDecoration(
           color: _hovered ? AppColors.cSlate800.withValues(alpha: 0.5) :AppColors.cTransparent,
           borderRadius: BorderRadius.circular(10.r),

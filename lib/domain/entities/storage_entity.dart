@@ -27,7 +27,6 @@ class StorageEntity extends Equatable {
         otherSizeGb,
       ];
 
-  // Flex values for UI
   int get downloadsFlex => totalSizeGb > 0 ? ((downloadsSizeGb / totalSizeGb) * 100).round() : 0;
   int get cacheFlex => totalSizeGb > 0 ? ((cacheSizeGb / totalSizeGb) * 100).round() : 0;
   int get otherFlex => totalSizeGb > 0 ? (((usedSizeGb - downloadsSizeGb - cacheSizeGb) / totalSizeGb) * 100).round() : 0;

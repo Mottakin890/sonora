@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/dimentions/spacings.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
 
 class SearchHeaderDelegate extends SliverPersistentHeaderDelegate {
   final TextEditingController searchController;
@@ -27,7 +28,7 @@ class SearchHeaderDelegate extends SliverPersistentHeaderDelegate {
   Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
     return Container(
       color: AppColors.cDarkGreenBg.withValues(alpha: .95),
-      padding: REdgeInsets.fromLTRB(16, 48, 16, 12),
+      padding: REdgeInsets.fromLTRB(AppDimensions.md, 48, AppDimensions.md, AppDimensions.sm),
       child: Column(
         children: [
           Row(
@@ -44,7 +45,7 @@ class SearchHeaderDelegate extends SliverPersistentHeaderDelegate {
                 onTap: () {},
                 borderRadius: BorderRadius.circular(50.r),
                 child: Padding(
-                  padding: REdgeInsets.all(8),
+                  padding: AppDimensions.paddingAllXs,
                   child: Icon(Icons.photo_camera_outlined,
                       color: AppColors.cGrey500, size: 26.sp),
                 ),

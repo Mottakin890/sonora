@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/dimentions/spacings.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
-import 'package:sonora/global/utils/widgets/glass_box.dart';
+import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/common/utils/dimentions/spacings.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/widgets/glass_box.dart';
 import 'package:sonora/presentation/settings/bloc/settings_bloc.dart';
 import 'package:sonora/presentation/settings/bloc/settings_event.dart';
 import 'package:sonora/presentation/settings/bloc/settings_state.dart';
@@ -19,31 +20,25 @@ class SettingsView extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.cDarkGreenBg,
       body: BlocBuilder<SettingsBloc, SettingsState>(
-        // Only rebuild the full page when the state *type* changes
-        // (e.g. loading → loaded → error). Toggle changes are handled
-        // by individual _ToggleTileSelector widgets via BlocSelector.
         buildWhen: (previous, current) =>
-            previous.runtimeType != current.runtimeType ||
-            (previous is SettingsLoaded &&
-                current is SettingsLoaded &&
-                previous.storageInfo != current.storageInfo),
+            previous.status != current.status ||
+            previous.storageInfo != current.storageInfo,
         builder: (context, state) {
           return CustomScrollView(
             slivers: [
-              // ── App Bar ─────────────────────────────────────────────────
               SliverAppBar(
                 pinned: true,
                 backgroundColor: Colors.transparent,
                 elevation: 0,
-                leadingWidth: 56,
+                leadingWidth: 56.w,
                 leading: RPadding(
-                  padding: REdgeInsets.only(left: 16),
+                  padding: REdgeInsets.only(left: AppDimensions.md),
                   child: Center(
                     child: InkWell(
                       onTap: () {},
-                      borderRadius: BorderRadius.circular(99),
+                      borderRadius: BorderRadius.circular(50.r),
                       child: Container(
-                        padding: const EdgeInsets.all(8),
+                        padding: REdgeInsets.all(AppDimensions.xs),
                         decoration: const BoxDecoration(shape: BoxShape.circle),
                         child: const Icon(Icons.arrow_back, color: AppColors.cWhite),
                       ),
@@ -68,21 +63,20 @@ class SettingsView extends StatelessWidget {
                 toolbarHeight: 60.h,
               ),
 
-              // ── Body ────────────────────────────────────────────────────
-              if (state is SettingsLoading)
+              if (state.status == SettingsStatus.loading)
                 const SliverFillRemaining(
                   child: Center(child: CircularProgressIndicator()),
                 )
-              else if (state is SettingsError)
+              else if (state.status == SettingsStatus.failure)
                 SliverFillRemaining(
                   child: Center(
                     child: Text(
-                      state.message,
+                      state.errorMessage ?? 'Error',
                       style: const TextStyle(color: AppColors.cTextSecondary),
                     ),
                   ),
                 )
-              else if (state is SettingsLoaded)
+              else if (state.status == SettingsStatus.success)
                 SliverList(
                   delegate: SliverChildBuilderDelegate(
                     (context, index) {
@@ -111,14 +105,12 @@ class SettingsView extends StatelessWidget {
   Widget _buildItem(
     BuildContext context,
     Map<String, dynamic> item,
-    SettingsLoaded state,
+    SettingsState state,
   ) {
     final type = item['type'] as String;
 
     switch (type) {
       case 'toggle':
-        // Use a dedicated BlocSelector widget so ONLY this tile rebuilds
-        // when its specific toggle key changes — other tiles are unaffected.
         return _ToggleTileSelector(
           toggleKey: item['key'] as String,
           title: item['title'] as String,
@@ -134,15 +126,16 @@ class SettingsView extends StatelessWidget {
         );
 
       case 'storage':
+        if (state.storageInfo == null) return const SizedBox.shrink();
         return StorageBar(
-          storageInfo: state.storageInfo,
+          storageInfo: state.storageInfo!,
           onClearCache: () =>
               context.read<SettingsBloc>().add(const ClearStorageCache()),
         );
 
       case 'info':
         return RPadding(
-          padding: REdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          padding: REdgeInsets.symmetric(horizontal: AppDimensions.md, vertical: AppDimensions.sm),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -172,9 +165,6 @@ class SettingsView extends StatelessWidget {
   }
 }
 
-/// A self-contained toggle tile that uses [BlocSelector] to listen ONLY to
-/// the single boolean value it cares about. When any *other* toggle changes,
-/// this widget is never rebuilt.
 class _ToggleTileSelector extends StatelessWidget {
   final String toggleKey;
   final String title;
@@ -190,7 +180,7 @@ class _ToggleTileSelector extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocSelector<SettingsBloc, SettingsState, bool>(
       selector: (state) =>
-          state is SettingsLoaded && (state.toggles[toggleKey] ?? false),
+          state.status == SettingsStatus.success && (state.toggles[toggleKey] ?? false),
       builder: (context, value) => SettingToggleTile(
         title: title,
         subtitle: subtitle,

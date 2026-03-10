@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sonora/global/utils/themes/app_colors.dart';
+import 'package:sonora/common/utils/themes/app_colors.dart';
 
 class PlayButton extends StatefulWidget {
   const PlayButton({super.key});
@@ -24,7 +24,7 @@ class _PlayButtonState extends State<PlayButton> {
         child: Container(
           height: 46.h,
           constraints:  BoxConstraints(minWidth: 100.w),
-          padding: const EdgeInsets.symmetric(horizontal: 28),
+          padding: REdgeInsets.symmetric(horizontal: 28),
           decoration: BoxDecoration(
             color: AppColors.cSpotifyGreen,
             borderRadius: BorderRadius.circular(50.r),
