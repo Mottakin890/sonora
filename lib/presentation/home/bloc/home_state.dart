@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:sonora/domain/entities/filter_type.dart';
 import 'package:sonora/domain/entities/media_entities.dart';
 import 'package:sonora/domain/entities/playlist_entities.dart';
 
@@ -10,7 +11,7 @@ final class HomeState extends Equatable {
   final List<MediaEntities> madeForYou;
   final List<MediaEntities> jumpBackIn;
   final List<MediaEntities> recentlyPlayedSection;
-  final String selectedFilter;
+  final HomeFilterType selectedFilter;
 
   const HomeState({
     this.status = HomeStatus.initial,
@@ -18,7 +19,7 @@ final class HomeState extends Equatable {
     this.madeForYou = const [],
     this.jumpBackIn = const [],
     this.recentlyPlayedSection = const [],
-    this.selectedFilter = 'All',
+    this.selectedFilter = HomeFilterType.all,
   });
 
   HomeState copyWith({
@@ -27,7 +28,7 @@ final class HomeState extends Equatable {
     List<MediaEntities>? madeForYou,
     List<MediaEntities>? jumpBackIn,
     List<MediaEntities>? recentlyPlayedSection,
-    String? selectedFilter,
+    HomeFilterType? selectedFilter,
   }) {
     return HomeState(
       status: status ?? this.status,

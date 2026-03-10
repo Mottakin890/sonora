@@ -5,8 +5,10 @@ import 'package:sonora/common/utils/dimentions/spacings.dart';
 import 'package:sonora/common/utils/themes/app_colors.dart';
 import 'package:sonora/presentation/search/widget/top_result_card.dart';
 
+import 'package:sonora/domain/entities/media_entities.dart';
+
 class TopResultSection extends StatelessWidget {
-  final Map<String, String> data;
+  final MediaEntities data;
 
   const TopResultSection({
     super.key,
@@ -29,9 +31,9 @@ class TopResultSection extends StatelessWidget {
           ),
           Spacing.vertical(10),
           TopResultCard(
-            name: data['name'] ?? data['title'] ?? '',
-            type: data['type'] ?? (data.containsKey('artist') ? 'Song' : 'Artist'),
-            imageUrl: data['image'] ?? data['imageUrl'] ?? '',
+            name: data.title,
+            type: data.isCircle ? 'Artist' : (data.subtitle.contains('Playlist') || data.subtitle.contains('Album') ? data.subtitle.split('•').last.trim() : 'Song'),
+            imageUrl: data.imageUrl,
           ),
         ],
       ),

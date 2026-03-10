@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sonora/common/utils/dimentions/app_dimensions.dart';
+import 'package:sonora/domain/entities/media_entities.dart';
 import 'package:sonora/common/utils/themes/app_colors.dart';
 import 'package:sonora/presentation/search/widget/recent_search_item.dart';
 import 'package:sonora/presentation/search/widget/top_result_section.dart';
 
 class SearchResultsSection extends StatelessWidget {
-  final List<Map<String, String>> songs;
-  final List<Map<String, String>> artists;
+  final List<MediaEntities> songs;
+  final List<MediaEntities> artists;
 
   const SearchResultsSection({
     super.key,
@@ -50,9 +51,9 @@ class SearchResultsSection extends StatelessWidget {
             ),
           ),
           ...songs.take(5).map((song) => RecentSearchItem(
-                name: song['title']!,
-                type: 'Song • ${song['artist']}',
-                imageUrl: song['image']!,
+                name: song.title,
+                type: 'Song • ${song.subtitle}',
+                imageUrl: song.imageUrl,
                 onRemove: null, // No remove button in search results
               )),
         ],
@@ -73,9 +74,9 @@ class SearchResultsSection extends StatelessWidget {
               .where((a) => a != topResult)
               .take(5)
               .map((artist) => RecentSearchItem(
-                    name: artist['name']!,
+                    name: artist.title,
                     type: 'Artist',
-                    imageUrl: artist['image']!,
+                    imageUrl: artist.imageUrl,
                     onRemove: null,
                   )),
         ],

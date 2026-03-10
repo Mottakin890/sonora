@@ -152,10 +152,10 @@ class _SearchViewState extends State<SearchView> {
                               (index) {
                             final item = state.recentSearches[index];
                             return RecentSearchItem(
-                              key: ValueKey(item['name']),
-                              name: item['name']!,
-                              type: item['type']!,
-                              imageUrl: item['imageUrl']!,
+                              key: ValueKey(item.name),
+                              name: item.name,
+                              type: item.type,
+                              imageUrl: item.imageUrl,
                               onRemove: () {
                                 context
                                     .read<SearchBloc>()
@@ -196,11 +196,11 @@ class _SearchViewState extends State<SearchView> {
                           itemBuilder: (context, index) {
                             final cat = state.categories[index];
                             return CategoryCard(
-                              key: ValueKey(cat['name']),
-                              name: cat['name']!,
-                              color1: _hexToColor(cat['color1']!),
-                              color2: _hexToColor(cat['color2']!),
-                              imageUrl: cat['imageUrl']!,
+                              key: ValueKey(cat.name),
+                              name: cat.name,
+                              color1: _hexToColor(cat.color1),
+                              color2: _hexToColor(cat.color2),
+                              imageUrl: cat.imageUrl,
                             );
                           },
                         ),

@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:sonora/domain/entities/filter_type.dart';
 
 sealed class HomeEvent extends Equatable {
   const HomeEvent();
@@ -12,7 +13,7 @@ final class LoadHomeData extends HomeEvent {
 }
 
 final class HomeFilterChanged extends HomeEvent {
-  final String filter;
+  final HomeFilterType filter;
 
   const HomeFilterChanged(this.filter);
 

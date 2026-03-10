@@ -1,5 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sonora/common/resources/mock_data.dart';
+import 'package:sonora/domain/entities/media_entities.dart';
+import 'package:sonora/domain/entities/search_entities.dart';
 import 'package:sonora/presentation/search/bloc/search_event.dart';
 import 'package:sonora/presentation/search/bloc/search_state.dart';
 
@@ -18,8 +20,8 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
     emit(state.copyWith(
       status: SearchStatus.success,
-      recentSearches: MockData.recentSearches,
-      categories: MockData.categories,
+      recentSearches: MockData.recentSearches.map(RecentSearchEntity.fromMap).toList(),
+      categories: MockData.categories.map(SearchCategoryEntity.fromMap).toList(),
     ));
   }
 
@@ -40,12 +42,21 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
       final title = song['title']?.toLowerCase() ?? '';
       final artist = song['artist']?.toLowerCase() ?? '';
       return title.contains(query) || artist.contains(query);
-    }).toList();
+    }).map((m) => MediaEntities(
+        m['title'] ?? '',
+        m['artist'] ?? '',
+        m['image'] ?? '',
+      )).toList();
 
     final filteredArtists = MockData.artists.where((artist) {
       final name = artist['name']?.toLowerCase() ?? '';
       return name.contains(query);
-    }).toList();
+    }).map((m) => MediaEntities(
+        m['name'] ?? '',
+        'Artist',
+        m['image'] ?? '',
+        isCircle: true,
+      )).toList();
 
     emit(state.copyWith(
       query: event.query,
@@ -56,7 +67,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
 
   void _onRemoveRecentSearch(
       RemoveRecentSearch event, Emitter<SearchState> emit) {
-    final updatedList = List<Map<String, String>>.from(state.recentSearches);
+    final updatedList = List<RecentSearchEntity>.from(state.recentSearches);
     if (event.index >= 0 && event.index < updatedList.length) {
       updatedList.removeAt(event.index);
       emit(state.copyWith(recentSearches: updatedList));
